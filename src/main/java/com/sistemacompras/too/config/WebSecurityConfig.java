@@ -1,5 +1,6 @@
 package com.sistemacompras.too.config;
 
+import com.sistemacompras.too.component.CustomSuccessHandler;
 import com.sistemacompras.too.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -16,23 +18,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //Necesario para evitar que la seguridad se aplique a los resources
     //Como los css, imagenes y javascripts
     String[] resources = new String[]{
-            "/include/**","/css/**","/icons/**","/img/**","/js/**","/vendor/**","/scss/**"
+            "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/vendor/**", "/scss/**"
     };
+    
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomSuccessHandler();
+    }
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()//Quienes están autorizados
                 .antMatchers(resources).permitAll()
-                .antMatchers("/","/login").permitAll()
-//                .antMatchers("/admin*").access("hasRole('ADMIN')")
-//                .antMatchers("/user*").access("hasRole('USER')")
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/admin*").access("hasRole('ADMIN')")
+                .antMatchers("/proveedor*").access("hasRole('PROVEEDOR')")
+                .antMatchers("/jefe*").access("hasRole('JEFE')")
                 .anyRequest().authenticated() //Cualquier otra ruta que no está arriba debe ser autenticada
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/menu") //Login exitoso
+//                .defaultSuccessUrl("/menu")
+                .successHandler(myAuthenticationSuccessHandler()) //Login exitoso
                 .failureUrl("/login?error=true") //Fallo el login
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -41,7 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll() //Todos los usuarios
                 .logoutSuccessUrl("/login?logout");
     }
+
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
     //Crea el encriptador de contraseñas
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -64,4 +76,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // And Setting PassswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+    
 }

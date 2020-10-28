@@ -12,7 +12,7 @@ public class Authority { //Clase que sirve para los roles
     private String authority;
 
     //Metodo que modifica el rol
-    public void setAuthority(String authority){
+    public void setAuthority(String authority) {
         this.authority = authority;
     }
 

@@ -2,18 +2,41 @@ package com.sistemacompras.too.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+
 public class AppController {
     @GetMapping({"/", "login"})
-    public String index(){
+    public String index() {
         return "login";
     }
 
-    @GetMapping("/menu")
-    public String menu(){
-        return "base/menu";
-    }
+//    @GetMapping("/menu2")
+//    public String menu() {
+//        return "dashboardAdmin";
+//    }
+    
+  @GetMapping("/admin")
+  public String menu() {
+      return "dashboardAdmin";
+  }
+    
+//    @GetMapping("/admin/dashboard")
+//	public String menuAdmin() {
+//    	return  "dashboardAdmin";
+//	}
+
+    @GetMapping("/jefe")
+	public ModelAndView jefeDashboard() {
+		return new ModelAndView("dashboardJefe");
+	}
+	
+	@GetMapping("/proveedor")
+	public ModelAndView proveedorDashboard() {
+		return new ModelAndView("dashboardProveedor");
+	}
 //
 //    @GetMapping("/user")
 //    public String user(){

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{base/base.html}">
+<head>
+<title>Productos proveedor</title>
+<div layout:fragment="style_css">
+	<!-- Aqui va el codigo CSS extra que se quiera agregar -->
+
+
+	<link th:href="@{vendor/datatables/dataTables.bootstrap4.min.css}"
+		href="static/vendor/datatables/dataTables.bootstrap4.min.css"
+		rel="stylesheet" type="text/css">
+</div>
+</head>
+
+<body>
+	<div layout:fragment="item_menu">
+		<!-- Aqui van las opciones del menu lateral -->
+		<!-- Nav Item - Dashboard -->
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+	</div>
+
+	<div layout:fragment="main_content">
+		<!-- Aqui va el contenido principal -->
+		<div class="row">
+			<div class="col-xl-12">
+				<div
+					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+					<div class="col mr-2 text-dark">
+						<h2>Listar Producto de proveedor</h2>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-success text-right" href=""> <i
+							class="fas fa-calendar-plus"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="card shadow-sm my-3 py-3">
+					<div
+						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+						<!-- ESCRIBIR CODIGO AQUÍ -->
+
+						<table class="table" id="myTable">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>nombre de producto</th>
+									<th>periodo de gracia</th>
+									<th>descuento in</th>
+									<th>numero de existencia</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product : ${listProductoProveedor}">
+									<td th:text="${product.idProductoProveedor}">ID</td>
+									<td th:text="${product.nombreProductoProveedor}">nombre de
+										producto</td>
+									<td th:text="${product.periodoDeGracia}">periodo de gracia</td>
+									<td th:text="${product.descuento}">descuento</td>
+									<td th:text="${product.numExistencia}">numero de
+										existencia</td>
+									<td><a
+										th:href="@{/ProductoProveedor/edit/{id}(id=${product.idProductoProveedor})}">Edit</a>
+										<a
+										th:href="@{/ProductoProveedor/delete/{id}(id=${product.idProductoProveedor})}">Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div layout:fragment="style_js">
+		<!-- Aqui va el contenido JS extra -->
+
+		<script th:src="@{vendor/datatables/jquery.dataTables.min.js}"
+			src="static/vendor/datatables/jquery.dataTables.min.js"></script>
+
+		<script th:src="@{vendor/datatables/dataTables.bootstrap4.min.js}"
+			src="static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+		<script th:src="@{js/demo/datatables-demo.js}"
+			src="static/js/demo/datatables-demo.js"></script>
+
+		<script>
+			$(document).ready(function() {
+				$('#myTable').DataTable();
+			});
+		</script>
+	</div>
+
+</body>
+</html>

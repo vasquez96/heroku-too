@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ver Producto</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Ver Producto</h1>
+		<br>
+		<div th:object="${productoProveedor}">
+			<p th:field="*{idProductoProveedor}" >Id del producto:</p>
+			<input type="text" th:field="*{idProductoProveedor}">
+
+			<p>Nombre del producto:</p>
+			<input type="text" th:field="*{nombreProductoProveedor}">
+
+			<p>Periodo de gracia:</p>
+			<input type="number" th:field="*{periodoDeGracia}">
+
+			<p>Descuento:</p>
+			<input type="number" th:field="*{descuento}">
+
+			<p>Nuemro de existencia:</p>
+			<input type="number" th:field="*{numExistencia}">
+
+			<p>Cantidad de existencia:</p>
+			<input type="number" th:field="*{cantidadExistencia}">
+
+			<p>Fecha de inicio de promocion:</p>
+			<input type="date" th:field="*{fechaVigenciaInicio}">
+
+			<p>Fecha de final de promocion:</p>
+			<input type="date" th:field="*{fechaVigenciaFinal}">
+
+			<p>Unidad:</p>
+			<input type="text" th:field="*{unidad}">
+
+			<p>Direccion:</p>
+			<input type="text" th:field="*{direccion}">
+		</div>
+	</div>
+</body>
+</html>

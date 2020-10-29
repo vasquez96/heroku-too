@@ -3,10 +3,7 @@ package com.sistemacompras.too.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
@@ -15,13 +12,14 @@ import com.sistemacompras.too.service.ProductoProveedorService;
 
 
 @Controller
+@RequestMapping("/proveedor")
 public class ProductoProveedorController {
 
 	//Controlador de Producto de proveedor
     @Autowired
     private ProductoProveedorService service;
 
-    @RequestMapping("/ProductoProveedor")
+    @GetMapping("/ProductoProveedor")
     public String viewHomePage(Model model){
         //Obtenemos todos los objetos de tipo Producto proveedor
         List<ProductoProveedor> listProductoProveedor = service.listAll();

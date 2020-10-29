@@ -33,9 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()//Quienes están autorizados
                 .antMatchers(resources).permitAll()
                 .antMatchers("/", "/login").permitAll()
-                .antMatchers("/admin*").access("hasRole('ADMIN')")
-                .antMatchers("/proveedor*").access("hasRole('PROVEEDOR')")
-                .antMatchers("/jefe*").access("hasRole('JEFE')")
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/proveedor/**").access("hasRole('PROVEEDOR')")
+                .antMatchers("/jefe/**").access("hasRole('JEFE')")
                 .anyRequest().authenticated() //Cualquier otra ruta que no está arriba debe ser autenticada
                 .and()
                 .formLogin()

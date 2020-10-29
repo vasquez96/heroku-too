@@ -22,11 +22,6 @@ public class AppController {
   public String menu() {
       return "dashboardAdmin";
   }
-    
-//    @GetMapping("/admin/dashboard")
-//	public String menuAdmin() {
-//    	return  "dashboardAdmin";
-//	}
 
     @GetMapping("/jefe")
 	public ModelAndView jefeDashboard() {

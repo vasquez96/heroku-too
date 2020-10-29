@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}">
+<head>
+    <title>Ingresar</title>
+    <div layout:fragment="style_css">
+        <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+    </div>
+</head>
+
+<body>
+<div layout:fragment="item_menu">
+    <!-- Aqui van las opciones del menu lateral -->
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item"><a class="nav-link" href="index.html"> <i
+            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+    </a></li>
+    <li class="nav-item"><a class="nav-link" href="index.html"> <i
+            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+    </a></li>
+</div>
+
+<div layout:fragment="main_content">
+    <!-- Aqui va el contenido principal -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div
+                    class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+                <div class="col mr-2 text-dark">
+                    <h2>Crear requisición</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow-sm my-3 py-3">
+                <div
+                        class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+                    <!-- ESCRIBIR CODIGO AQU� -->
+                    <div class="container">
+                        <h1> Lista de artículos </h1>
+                        <form action="" method="post">
+                            <table id="lista_productos" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th> Cantidad </th>
+                                    <th> Artículo </th>
+                                    <th>  </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="number" name="cantidad[]" placeholder="Cantidad" />
+                                    </td>
+                                    <td>
+                                        <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" name="articulo[]" id="articulo[]">
+                                            <option value="">Seleccione un artículo</option>
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-success button_agregar_producto"><i class="fas fa-plus-square"></i> </button>
+                                        <button type="submit" class="btn btn-success">Crear requisición</button>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div layout:fragment="style_js">
+    <!-- Aqui va el contenido JS extra -->
+    <script th:src="@{/vendor/ckeditor5/ckeditor.js}"
+            src="/static/vendor/ckeditor5/ckeditor.js">
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        $(".js-example-responsive").select2({
+            width: 'resolve' // need to override the changed default
+        });
+    </script>
+
+    <script type="text/javascript">
+        function productos() {
+            var tbody = $('#lista_productos tbody');
+            var fila_contenido = tbody.find('tr').first().html();
+            //Agregar fila nueva.
+            $('#lista_productos .button_agregar_producto').click(function () {
+                var fila_nueva = $('<tr></tr>');
+                fila_nueva.append(fila_contenido);
+                tbody.append(fila_nueva);
+            });
+            //Eliminar fila.
+            $('#lista_productos').on('click', '.button_eliminar_producto', function () {
+                $(this).parents('tr').eq(0).remove();
+            });
+        }
+
+        $(document).ready(function(){
+            productos();
+        });
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+2020-10-29 23:08:11,879 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-10-29 23:14:02,578 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-10-29 23:16:10,416 [Worker-9: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sistemacompras:too:0.0.1-SNAPSHOT @ C:\Users\geral\Documents\SpringBoot1\SistemaComprasToo\pom.xml.
+2020-10-29 23:16:52,637 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:16:52,772 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-10-29 23:16:53,188 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1846 resources
+2020-10-29 23:17:00,167 [Worker-1: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sistemacompras:too:0.0.1-SNAPSHOT @ C:\Users\geral\Documents\SpringBoot1\SistemaComprasToo\pom.xml.
+2020-10-29 23:18:15,090 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:18:15,091 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\geral\Documents\SpringBoot1\SistemaComprasToo\src\test\resources
+2020-10-29 23:18:26,205 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:18:26,670 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-10-29 23:18:27,071 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1846 resources
+2020-10-29 23:19:12,994 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:19:12,995 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\geral\Documents\SpringBoot1\SistemaComprasToo\src\test\resources
+2020-10-29 23:20:29,476 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:20:29,477 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-10-29 23:20:29,478 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-10-29 23:20:29,483 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-29 23:20:29,483 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\geral\Documents\SpringBoot1\SistemaComprasToo\src\test\resources

@@ -1,10 +1,4 @@
 package com.sistemacompras.too.entity;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -18,8 +12,7 @@ public class ProductoProveedor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idProductoProveedor;
 	
-    @Column
-    private Long idProveedor;
+
     @Column
     private String nombreProductoProveedor;
     @Column
@@ -41,11 +34,15 @@ public class ProductoProveedor {
     @Column
     private String direccion;
     
-	public ProductoProveedor(Long idProductoProveedor, Long idProveedor, String nombreProductoProveedor,
-			int periodoDeGracia, float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
-			Date fechaVigenciaFinal, String unidad, String direccion) {
+    @JoinColumn(name="idProveedor",unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    private Proveedor idProveedor;
+
+	public ProductoProveedor(Long idProductoProveedor, String nombreProductoProveedor, int periodoDeGracia,
+			float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
+			Date fechaVigenciaFinal, String unidad, String direccion, Proveedor idProveedor) {
+
 		this.idProductoProveedor = idProductoProveedor;
-		this.idProveedor = idProveedor;
 		this.nombreProductoProveedor = nombreProductoProveedor;
 		this.periodoDeGracia = periodoDeGracia;
 		this.descuento = descuento;
@@ -55,23 +52,12 @@ public class ProductoProveedor {
 		this.fechaVigenciaFinal = fechaVigenciaFinal;
 		this.unidad = unidad;
 		this.direccion = direccion;
+		this.idProveedor = idProveedor;
 	}
-	
-	
-	
-	
-	
-	
 
 	public ProductoProveedor() {
-		
+
 	}
-
-
-
-
-
-
 
 	public Long getIdProductoProveedor() {
 		return idProductoProveedor;
@@ -79,14 +65,6 @@ public class ProductoProveedor {
 
 	public void setIdProductoProveedor(Long idProductoProveedor) {
 		this.idProductoProveedor = idProductoProveedor;
-	}
-
-	public Long getIdProveedor() {
-		return idProveedor;
-	}
-
-	public void setIdProveedor(Long idProveedor) {
-		this.idProveedor = idProveedor;
 	}
 
 	public String getNombreProductoProveedor() {
@@ -160,7 +138,50 @@ public class ProductoProveedor {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-    
 
+	public Proveedor getIdProveedor() {
+		return idProveedor;
+	}
+
+	public void setIdProveedor(Proveedor idProveedor) {
+		this.idProveedor = idProveedor;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idProductoProveedor == null) ? 0 : idProductoProveedor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductoProveedor other = (ProductoProveedor) obj;
+		if (idProductoProveedor == null) {
+			if (other.idProductoProveedor != null)
+				return false;
+		} else if (!idProductoProveedor.equals(other.idProductoProveedor))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductoProveedor [idProductoProveedor=" + idProductoProveedor + ", nombreProductoProveedor="
+				+ nombreProductoProveedor + ", periodoDeGracia=" + periodoDeGracia + ", descuento=" + descuento
+				+ ", numExistencia=" + numExistencia + ", cantidadExistencia=" + cantidadExistencia
+				+ ", fechaVigenciaInicio=" + fechaVigenciaInicio + ", fechaVigenciaFinal=" + fechaVigenciaFinal
+				+ ", unidad=" + unidad + ", direccion=" + direccion + ", idProveedor=" + idProveedor + "]";
+	}
+    
+    
+    
 
 }

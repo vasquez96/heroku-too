@@ -62,19 +62,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="product : ${listProductoProveedor}">
-									<td th:text="${product.idProductoProveedor}">ID</td>
-									<td th:text="${product.nombreProductoProveedor}">nombre de
-										producto</td>
-									<td th:text="${product.periodoDeGracia}">periodo de gracia</td>
-									<td th:text="${product.descuento}">descuento</td>
-									<td th:text="${product.numExistencia}">numero de
-										existencia</td>
-									<td><a
-										th:href="@{/ProductoProveedor/edit/{id}(id=${product.idProductoProveedor})}">Edit</a>
-										<a
-										th:href="@{/ProductoProveedor/delete/{id}(id=${product.idProductoProveedor})}">Delete</a>
-									</td>
+								<tr th:each="product : ${listProveedor}">
+									<td th:text="${product.idProveedor}">ID</td>
+
 								</tr>
 							</tbody>
 						</table>

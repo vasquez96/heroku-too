@@ -4,8 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.*;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+import java.util.Calendar;
+import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
 public class Proveedor {
@@ -32,7 +37,6 @@ public class Proveedor {
 
 public Proveedor(Long idProveedor, String nombreProveedor, String apellidoProveedor, String generoProveedor,
 		String direccionProveedor, int telefonoProveedor, User idUser) {
-	super();
 	this.idProveedor = idProveedor;
 	this.nombreProveedor = nombreProveedor;
 	this.apellidoProveedor = apellidoProveedor;
@@ -43,7 +47,7 @@ public Proveedor(Long idProveedor, String nombreProveedor, String apellidoProvee
 }
 
 public Proveedor() {
-	super();
+
 }
 
 public Long getIdProveedor() {

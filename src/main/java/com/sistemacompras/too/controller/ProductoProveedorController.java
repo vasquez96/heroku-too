@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.sistemacompras.too.entity.ProductoProveedor;
 import com.sistemacompras.too.service.ProductoProveedorService;
+import com.sistemacompras.too.entity.Proveedor;
+import com.sistemacompras.too.service.ProveedorService;
 
 
 @Controller
@@ -18,12 +20,16 @@ public class ProductoProveedorController {
 	//Controlador de Producto de proveedor
     @Autowired
     private ProductoProveedorService service;
+    private ProveedorService ProveedorService;
 
     @GetMapping("/ProductoProveedor")
     public String viewHomePage(Model model){
         //Obtenemos todos los objetos de tipo Producto proveedor
-        List<ProductoProveedor> listProductoProveedor = service.listAll();
-        model.addAttribute("listProductoProveedor", listProductoProveedor);
+        //List<ProductoProveedor> listProductoProveedor = service.listAll();
+        //model.addAttribute("listProductoProveedor", listProductoProveedor);
+    	List<Proveedor> listProveedor = ProveedorService.listAll();
+    	model.addAttribute("listProveedor", listProveedor);
+    	   	
         return "ProductoProveedor/index"; //Nombre del html
     }
     

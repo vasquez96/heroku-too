@@ -7,6 +7,9 @@
     <title>Ingresar</title>
     <div layout:fragment="style_css">
         <!-- Aqui va el codigo CSS extra que se quiera agregar -->
+        <link th:href="@{/vendor/select2/css/select2.css}"
+              href="/static/vendor/select2/css/select2.css" rel="stylesheet"
+              type="text/css">
     </div>
 </head>
 
@@ -42,40 +45,47 @@
                     <!-- ESCRIBIR CODIGO AQU� -->
                     <div class="container">
                         <h1> Lista de artículos </h1>
-                        <form action="" method="post">
+                        <form id="tabla" action="" method="post">
                             <table id="lista_productos" class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th> Cantidad </th>
-                                    <th> Artículo </th>
-                                    <th>  </th>
+                                    <th> Cantidad</th>
+                                    <th> Artículo</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tBody">
+                                <!--
                                 <tr>
                                     <td>
-                                        <input type="number" name="cantidad[]" placeholder="Cantidad" />
+                                        <input type="number" name="cantidad[]" placeholder="Cantidad"/>
                                     </td>
                                     <td>
-                                        <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" name="articulo[]" id="articulo[]">
+                                        <select style="width: 100%" class="js-example-responsive col-xl-12 form-control"
+                                                name="articulo[]" id="articulo[]">
                                             <option value="">Seleccione un artículo</option>
-                                            </option>
+                                            <option th:each="producto : ${listProductos}"
+                                                    th:value="${producto.idProductoProveedor}"
+                                                    th:text="${producto.nombreProductoProveedor}"></option>
                                         </select>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar </button>
+                                        <button type="button" class="btn btn-danger button_eliminar_producto">
+                                            Eliminar
+                                        </button>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-success button_agregar_producto"><i class="fas fa-plus-square"></i> </button>
-                                        <button type="submit" class="btn btn-success">Crear requisición</button>
+                                        <button type="button" class="btn btn-primary button_agregar_producto"><i
+                                                class="fas fa-plus-square"></i>Agregar producto</button>
                                     </td>
                                 </tr>
                                 </tfoot>
                             </table>
+                            <button type="submit" class="btn btn-success">Crear requisición</button>
                         </form>
                     </div>
 
@@ -86,17 +96,35 @@
 </div>
 <div layout:fragment="style_js">
     <!-- Aqui va el contenido JS extra -->
-    <script th:src="@{/vendor/ckeditor5/ckeditor.js}"
-            src="/static/vendor/ckeditor5/ckeditor.js">
+    <script th:src="@{/vendor/select2/js/select2.js}"
+            src="/static/vendor/select2/js/select2.js">
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.js-example-basic-single').select2();
         });
         $(".js-example-responsive").select2({
             width: 'resolve' // need to override the changed default
         });
     </script>
+    <script id="nuevaFila" type="text/html">
+        <tr>
+            <td>
+                <input type="number" name="cantidad[]" placeholder="Cantidad" />
+            </td>
+            <td>
+                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" name="articulo[]" id="articulo[]">
+                    <option value="">Seleccione un artículo</option>
+                    <option th:each="producto : ${listProductos}"
+                            th:value="${producto.idProductoProveedor}"
+                            th:text="${producto.nombreProductoProveedor}"></option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger button_eliminar_producto"> Eliminar </button>
+            </td>
+        </tr>
+</script>
 
     <script type="text/javascript">
         function productos() {
@@ -104,9 +132,11 @@
             var fila_contenido = tbody.find('tr').first().html();
             //Agregar fila nueva.
             $('#lista_productos .button_agregar_producto').click(function () {
-                var fila_nueva = $('<tr></tr>');
-                fila_nueva.append(fila_contenido);
-                tbody.append(fila_nueva);
+                var fila = document.getElementById('nuevaFila').innerHTML;
+                $('#tBody').append(fila);
+                // var fila_nueva = "<tr></tr>";
+                // fila_nueva.append(fila_contenido);
+                // tbody.append(fila_nueva);
             });
             //Eliminar fila.
             $('#lista_productos').on('click', '.button_eliminar_producto', function () {
@@ -114,7 +144,7 @@
             });
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             productos();
         });
     </script>

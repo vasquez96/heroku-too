@@ -1,13 +1,6 @@
 package com.sistemacompras.too.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class ProductoRequisicion {
@@ -15,22 +8,22 @@ public class ProductoRequisicion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idProductoRequisicion;
-	
+
 	@Column
 	private int cantidad;
-	
-	
+
+
 	public ProductoRequisicion() {
-		
+
 	}
-	
-	@JoinColumn(name="idProductoProveedor",unique = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private ProductoProveedor idProductoProveedor;
-	
-	@JoinColumn(name="idRequisicionDeArticulo",unique = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private RequisicionDeArticulo idRequisicionDeArticulo;
+
+	@ManyToOne
+	@JoinColumn(name = "idRequisicionDeArticulo")
+	private RequisicionDeArticulo idRequisicionDeArticulo;
+
+	@ManyToOne
+	@JoinColumn(name = "idProductoProveedor")
+	private ProductoProveedor idProductoProveedor;
 
 	public Long getIdProductoRequisicion() {
 		return idProductoRequisicion;
@@ -65,7 +58,7 @@ public class ProductoRequisicion {
 	}
 
 	public ProductoRequisicion(Long idProductoRequisicion, int cantidad, ProductoProveedor idProductoProveedor,
-			RequisicionDeArticulo idRequisicionDeArticulo) {
+							   RequisicionDeArticulo idRequisicionDeArticulo) {
 		this.idProductoRequisicion = idProductoRequisicion;
 		this.cantidad = cantidad;
 		this.idProductoProveedor = idProductoProveedor;
@@ -103,7 +96,5 @@ public class ProductoRequisicion {
 				+ ", idProductoProveedor=" + idProductoProveedor + ", idRequisicionDeArticulo="
 				+ idRequisicionDeArticulo + "]";
 	}
-	
-	
-	
+
 }

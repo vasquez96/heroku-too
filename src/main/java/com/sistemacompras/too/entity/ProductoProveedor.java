@@ -9,38 +9,38 @@ import javax.persistence.*;
 @Entity
 public class ProductoProveedor {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idProductoProveedor;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idProductoProveedor;
 
-    @Column
-    private String nombreProductoProveedor;
-    @Column
-    private int periodoDeGracia;
-    @Column
-    private float descuento;
-    @Column
-    private int numExistencia;
-    @Column
-    private int cantidadExistencia;
-    @Column
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
-    private Date fechaVigenciaInicio;
-    @Column
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
-    private Date fechaVigenciaFinal; 
-    @Column
-    private String unidad;
-    @Column
-    private String direccion;
-    
-    @JoinColumn(name="idProveedor",unique = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private Proveedor idProveedor;
+
+	@Column
+	private String nombreProductoProveedor;
+	@Column
+	private int periodoDeGracia;
+	@Column
+	private float descuento;
+	@Column
+	private int numExistencia;
+	@Column
+	private int cantidadExistencia;
+	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date fechaVigenciaInicio;
+	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date fechaVigenciaFinal;
+	@Column
+	private String unidad;
+	@Column
+	private String direccion;
+
+	@ManyToOne
+	@JoinColumn(name = "idProveedor")
+	private Proveedor idProveedor;
 
 	public ProductoProveedor(Long idProductoProveedor, String nombreProductoProveedor, int periodoDeGracia,
-			float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
-			Date fechaVigenciaFinal, String unidad, String direccion, Proveedor idProveedor) {
+							 float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
+							 Date fechaVigenciaFinal, String unidad, String direccion, Proveedor idProveedor) {
 
 		this.idProductoProveedor = idProductoProveedor;
 		this.nombreProductoProveedor = nombreProductoProveedor;
@@ -180,8 +180,5 @@ public class ProductoProveedor {
 				+ ", fechaVigenciaInicio=" + fechaVigenciaInicio + ", fechaVigenciaFinal=" + fechaVigenciaFinal
 				+ ", unidad=" + unidad + ", direccion=" + direccion + ", idProveedor=" + idProveedor + "]";
 	}
-    
-    
-    
 
 }

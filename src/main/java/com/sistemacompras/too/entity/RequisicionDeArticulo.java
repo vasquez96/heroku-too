@@ -11,7 +11,7 @@ public class RequisicionDeArticulo {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
- private Long idRequisicionDeArticulo;
+    private Long idRequisicionDeArticulo;
 
     @Column
     private String elaboradoPor;
@@ -81,36 +81,36 @@ public class RequisicionDeArticulo {
         this.fechaEntrega = fechaEntrega;
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idRequisicionDeArticulo == null) ? 0 : idRequisicionDeArticulo.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idRequisicionDeArticulo == null) ? 0 : idRequisicionDeArticulo.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RequisicionDeArticulo other = (RequisicionDeArticulo) obj;
-		if (idRequisicionDeArticulo == null) {
-			if (other.idRequisicionDeArticulo != null)
-				return false;
-		} else if (!idRequisicionDeArticulo.equals(other.idRequisicionDeArticulo))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RequisicionDeArticulo other = (RequisicionDeArticulo) obj;
+        if (idRequisicionDeArticulo == null) {
+            if (other.idRequisicionDeArticulo != null)
+                return false;
+        } else if (!idRequisicionDeArticulo.equals(other.idRequisicionDeArticulo))
+            return false;
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "RequisicionDeArticulo [idRequisicionDeArticulo=" + idRequisicionDeArticulo + ", elaboradoPor="
-				+ elaboradoPor + ", autorizadoPor=" + autorizadoPor + ", recibidoPor=" + recibidoPor + ", fechaPedido="
-				+ fechaPedido + ", fechaEntrega=" + fechaEntrega + "]";
-	}
+    @Override
+    public String toString() {
+        return "RequisicionDeArticulo [idRequisicionDeArticulo=" + idRequisicionDeArticulo + ", elaboradoPor="
+                + elaboradoPor + ", autorizadoPor=" + autorizadoPor + ", recibidoPor=" + recibidoPor + ", fechaPedido="
+                + fechaPedido + ", fechaEntrega=" + fechaEntrega + "]";
+    }
 
 }

@@ -20,6 +20,7 @@ public class ProductoProveedorController {
 	//Controlador de Producto de proveedor
     @Autowired
     private ProductoProveedorService service;
+    @Autowired
     private ProveedorService ProveedorService;
 
     @GetMapping("/ProductoProveedor")
@@ -28,8 +29,7 @@ public class ProductoProveedorController {
         //List<ProductoProveedor> listProductoProveedor = service.listAll();
         //model.addAttribute("listProductoProveedor", listProductoProveedor);
     	List<Proveedor> listProveedor = ProveedorService.listAll();
-    	model.addAttribute("listProveedor", listProveedor);
-    	   	
+    	model.addAttribute("listProveedor", listProveedor);  	
         return "ProductoProveedor/index"; //Nombre del html
     }
     

@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base.html}">
+      layout:decorate="~{base.html}" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <title>Ingresar</title>
     <div layout:fragment="style_css">
@@ -45,7 +45,7 @@
                     <!-- ESCRIBIR CODIGO AQU� -->
                     <div class="container">
                         <h1> Lista de artículos </h1>
-                        <form id="tabla" action="" method="post">
+                        <form id="tabla" action="#" th:action="@{/jefe/requisicion/save}" method="post">
                             <table id="lista_productos" class="table table-striped">
                                 <thead>
                                 <tr>
@@ -110,10 +110,10 @@
     <script id="nuevaFila" type="text/html">
         <tr>
             <td>
-                <input type="number" name="cantidad[]" placeholder="Cantidad" />
+                <input type="number" th:object="${productoRequisicion}" th:name="cantidad" name="cantidad[]" placeholder="Cantidad" />
             </td>
             <td>
-                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" name="articulo[]" id="articulo[]">
+                <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo" name="articulo[]" id="articulo[]">
                     <option value="">Seleccione un artículo</option>
                     <option th:each="producto : ${listProductos}"
                             th:value="${producto.idProductoProveedor}"

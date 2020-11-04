@@ -68,4 +68,21 @@ public class RequisicionController {
         } //Fin ciclo for
         return "redirect:/jefe";
     }
+
+    //Listar las requisiciones.
+    @GetMapping("/requisicion")
+    public String viewHomePage(Model model){
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
+        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
+        return "RequisicionJefeDepartamento/index"; //Nombre del html
+    }
+
+    //Ver las requisiciones.
+    @RequestMapping("/requisicion/view/{id}")
+    public ModelAndView showProductPage(@PathVariable(name = "id") Long id){
+        ModelAndView mav = new ModelAndView("requisicion/view");
+        RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
+        mav.addObject("requisicionDeArticulo", requisicionDeArticulo);
+        return mav;
+    }
 }

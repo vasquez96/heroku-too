@@ -52,6 +52,9 @@ public class ProductoRequisicion {
 	public RequisicionDeArticulo getIdRequisicionDeArticulo() {
 		return idRequisicionDeArticulo;
 	}
+	public Long getIdRequisicionDeArticuloEnLong() {
+		return idRequisicionDeArticulo.getIdRequisicionDeArticulo();
+	}
 
 	public void setIdRequisicionDeArticulo(RequisicionDeArticulo idRequisicionDeArticulo) {
 		this.idRequisicionDeArticulo = idRequisicionDeArticulo;
@@ -92,9 +95,11 @@ public class ProductoRequisicion {
 
 	@Override
 	public String toString() {
-		return "ProductoRequisicion [idProductoRequisicion=" + idProductoRequisicion + ", cantidad=" + cantidad
-				+ ", idProductoProveedor=" + idProductoProveedor + ", idRequisicionDeArticulo="
-				+ idRequisicionDeArticulo + "]";
+		return  "IdProductoRequisicion:" + idProductoRequisicion 
+				+ "\n cantidad:" + cantidad
+				+ "\n idProductoProveedor:"  + idProductoProveedor 
+				+ "\n idRequisicionDeArticulo:" + idRequisicionDeArticulo 
+				+ "------------------------------------------------------\n\n";
 	}
 
 }

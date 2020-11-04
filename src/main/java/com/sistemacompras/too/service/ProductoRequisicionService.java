@@ -5,6 +5,7 @@ import com.sistemacompras.too.repository.ProductoRequisicionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,6 +13,8 @@ public class ProductoRequisicionService {
     //Inyeccion de dependencias
     @Autowired
     private ProductoRequisicionRepository productoRequisicionRepository;
+	@Autowired
+    private ProductoRequisicionService productoRequisicionService;
 
     //Muestra todos los productos
     public List<ProductoRequisicion> listAll() {
@@ -32,5 +35,17 @@ public class ProductoRequisicionService {
     //Buscar listado por id
     public List<ProductoRequisicion> listByIdRequisicion(Long id) {
         return productoRequisicionRepository.findAllByIdRequisicionDeArticulo(id);
+    }
+    
+    public List<ProductoRequisicion> listadoPorId(Long id) {
+    	
+    	List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listAll();
+        List<ProductoRequisicion> list = new ArrayList<>();
+        
+        for (ProductoRequisicion nombre : productoRequisicion) {
+         	if (nombre.getIdRequisicionDeArticuloEnLong() == id)         	
+         	    list.add(nombre);       
+        	}
+        return list;
     }
 }

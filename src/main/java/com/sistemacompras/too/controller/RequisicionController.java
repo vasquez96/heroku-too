@@ -2,6 +2,7 @@ package com.sistemacompras.too.controller;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.sistemacompras.too.entity.ProductoRequisicion;
@@ -83,8 +84,15 @@ public class RequisicionController {
     public ModelAndView showProductPage(@PathVariable(name = "id") Long id){
         ModelAndView mav = new ModelAndView("RequisicionJefeDepartamento/view");
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
+        
+        List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
+
+        for (ProductoRequisicion nombre : productoRequisicion) {
+            System.out.println(nombre.toString());    
+        	}
+         
        // System.out.println(requisicionDeArticulo.toString());
-        mav.addObject("requisicionDeArticulo", requisicionDeArticulo);
+        mav.addObject("productoRequisicion", productoRequisicion);
         return mav;
     }
 }

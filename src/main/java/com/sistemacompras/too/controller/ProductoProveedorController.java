@@ -23,13 +23,11 @@ public class ProductoProveedorController {
     @Autowired
     private ProveedorService ProveedorService;
 
-    @GetMapping("/ProductoProveedor")
+    @RequestMapping("/ProductoProveedor")
     public String viewHomePage(Model model){
         //Obtenemos todos los objetos de tipo Producto proveedor
-        //List<ProductoProveedor> listProductoProveedor = service.listAll();
-        //model.addAttribute("listProductoProveedor", listProductoProveedor);
-    	List<Proveedor> listProveedor = ProveedorService.listAll();
-    	model.addAttribute("listProveedor", listProveedor);  	
+        List<ProductoProveedor> listProductoProveedor = service.listAll();
+        model.addAttribute("listProductoProveedor", listProductoProveedor);
         return "ProductoProveedor/index"; //Nombre del html
     }
     

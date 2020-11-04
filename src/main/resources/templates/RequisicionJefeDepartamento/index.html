@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base.html}">
+      layout:decorate="~{base}">
 <head>
     <title>Productos proveedor</title>
     <div layout:fragment="style_css">
@@ -34,7 +34,7 @@
             <div
                     class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
                 <div class="col mr-2 text-dark">
-                    <h2>Listar Requisiciones de Departamento</h2>
+                    <h2>Listar requisiciones del departamento</h2>
                 </div>
                 <div class="col-auto">
                     <a class="btn btn-success text-right" href=""> <i
@@ -49,22 +49,34 @@
             <div class="card shadow-sm my-3 py-3">
                 <div
                         class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
-                    <!-- ESCRIBIR CODIGO AQU� -->
+                    <!-- ESCRIBIR CODIGO AQUÍ -->
 
                     <table class="table" id="myTable">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>nombre de producto</th>
-                            <th>periodo de gracia</th>
-                            <th>descuento in</th>
-                            <th>numero de existencia</th>
+                            <th>elaborado por</th>
+                            <th>autorizado por</th>
+                            <th>recibido por</th>
+                            <th>fecha de pedido</th>
+                            <th>fecha de entrega</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="product : ${listProveedor}">
-                            <td th:text="${product.idProveedor}">ID</td>
-
+                        <tr th:each="requisicion : ${listRequisicionDeArticulo}">
+                            <td th:text="${requisicion.idRequisicionDeArticulo}">ID</td>
+                            <td th:text="${requisicion.elaboradoPor}">elaborado por</td>
+                            <td th:text="${requisicion.autorizadoPor}">autorizado por</td>
+                            <td th:text="${requisicion.recibidoPor}">descuento</td>
+                            <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
+                            <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
+                            <td><a
+                                    th:href="@{/RequisicionJefeDepartamento/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}">Editar</a>
+                                <a
+                                        th:href="@{/RequisicionJefeDepartamento/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}">Ver</a>
+                                <a
+                                        th:href="@{/RequisicionJefeDepartamento/delete/{id}(id=${requisicion.idRequisicionDeArticulo})}">Eliminar</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

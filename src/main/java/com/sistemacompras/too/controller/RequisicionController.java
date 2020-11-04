@@ -81,8 +81,9 @@ public class RequisicionController {
     //Ver las requisiciones.
     @RequestMapping("/requisicion/view/{id}")
     public ModelAndView showProductPage(@PathVariable(name = "id") Long id){
-        ModelAndView mav = new ModelAndView("requisicion/view");
+        ModelAndView mav = new ModelAndView("RequisicionJefeDepartamento/view");
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
+       // System.out.println(requisicionDeArticulo.toString());
         mav.addObject("requisicionDeArticulo", requisicionDeArticulo);
         return mav;
     }

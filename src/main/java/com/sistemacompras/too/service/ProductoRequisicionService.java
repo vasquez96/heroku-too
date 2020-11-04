@@ -29,4 +29,8 @@ public class ProductoRequisicionService {
     public void delete(Long id){
         productoRequisicionRepository.deleteById(id);
     }
+    //Buscar listado por id
+    public List<ProductoRequisicion> listByIdRequisicion(Long id) {
+        return productoRequisicionRepository.findAllByIdRequisicionDeArticulo(id);
+    }
 }

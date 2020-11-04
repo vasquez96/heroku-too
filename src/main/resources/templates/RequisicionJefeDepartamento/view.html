@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{base}">
 <head>
-<title>Ingresar</title>
+<title>Ver requisicion</title>
 <div layout:fragment="style_css">
 	<!-- Aqui va el codigo CSS extra que se quiera agregar -->
 </div>
@@ -29,7 +29,7 @@
 				<div
 					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
 					<div class="col mr-2 text-dark">
-						<h2>Ingresar nuevo producto cho cho</h2>
+						<h2>Ver requisicion</h2>
 					</div>
 					<div class="col-auto">
 						<a class="btn btn-success text-right" href=""> <i
@@ -46,7 +46,24 @@
 						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
 						<!-- ESCRIBIR CODIGO AQU� -->
 
-
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Nobre del producto</th>
+									<th scope="col">Cantidad</th>
+									<th scope="col">Elaborado Por</th>
+									<th scope="col">Fecha</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="requisicion : ${productoRequisicion}">
+									<td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">nombreProductoProveedor</td>
+									<td th:text="${requisicion.cantidad}">cantidad</td>
+									<td th:text="${requisicion.idRequisicionDeArticulo.elaboradoPor}">elaboradoPor</td>
+									<td th:text="${requisicion.idRequisicionDeArticulo.fechaPedido}">fechaPedido</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

@@ -49,7 +49,7 @@
             <div class="card shadow-sm my-3 py-3">
                 <div
                         class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
-                    <!-- ESCRIBIR CODIGO AQUÍ -->
+                    <!-- ESCRIBIR CODIGO AQUÃ -->
 
                     <table class="table" id="myTable">
                         <thead>
@@ -71,11 +71,11 @@
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td><a
-                                    th:href="@{/RequisicionJefeDepartamento/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}">Editar</a>
+                                    th:href="@{/RequisicionJefeDepartamento/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
                                 <a
-                                        th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}">Ver</a>
+                                        th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
                                 <a
-                                        th:href="@{/RequisicionJefeDepartamento/delete/{id}(id=${requisicion.idRequisicionDeArticulo})}">Eliminar</a>
+                                        th:href="@{/RequisicionJefeDepartamento/delete/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
                             </td>
                         </tr>
                         </tbody>

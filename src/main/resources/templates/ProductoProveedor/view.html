@@ -9,35 +9,39 @@
 		<h1>Ver Producto</h1>
 		<br>
 		<div th:object="${productoProveedor}">
-			<p th:field="*{idProductoProveedor}" >Id del producto:</p>
-			<input type="text" th:field="*{idProductoProveedor}">
 
 			<p>Nombre del producto:</p>
-			<input type="text" th:field="*{nombreProductoProveedor}">
+			<p class="p-2" th:text="${productoProveedor.nombreProductoProveedor}"
+				th:value="${productoProveedor.nombreProductoProveedor}"></p>
 
 			<p>Periodo de gracia:</p>
-			<input type="number" th:field="*{periodoDeGracia}">
+			<p class="p-2" th:text="${productoProveedor.periodoDeGracia}"
+				th:value="${productoProveedor.periodoDeGracia}"></p>
 
 			<p>Descuento:</p>
-			<input type="number" th:field="*{descuento}">
+			<p class="p-2" th:text="${productoProveedor.descuento}"
+				th:value="${productoProveedor.descuento}"></p>
 
 			<p>Nuemro de existencia:</p>
-			<input type="number" th:field="*{numExistencia}">
+			<p class="p-2" th:text="${productoProveedor.numExistencia}"
+				th:value="${productoProveedor.numExistencia}"></p>
 
 			<p>Cantidad de existencia:</p>
-			<input type="number" th:field="*{cantidadExistencia}">
+			<p class="p-2" th:text="${productoProveedor.cantidadExistencia}"
+				th:value="${productoProveedor.cantidadExistencia}"></p>
 
 			<p>Fecha de inicio de promocion:</p>
-			<input type="date" th:field="*{fechaVigenciaInicio}">
+			<p class="p-2" th:text="${productoProveedor.fechaVigenciaInicio}"
+				th:value="${productoProveedor.fechaVigenciaInicio}"></p>
 
 			<p>Fecha de final de promocion:</p>
-			<input type="date" th:field="*{fechaVigenciaFinal}">
+			<p class="p-2" th:text="${productoProveedor.fechaVigenciaFinal}"
+				th:value="${productoProveedor.fechaVigenciaFinal}"></p>
 
 			<p>Unidad:</p>
-			<input type="text" th:field="*{unidad}">
+			<p class="p-2" th:text="${productoProveedor.unidad}"
+				th:value="${productoProveedor.unidad}"></p>
 
-			<p>Direccion:</p>
-			<input type="text" th:field="*{direccion}">
 		</div>
 	</div>
 </body>

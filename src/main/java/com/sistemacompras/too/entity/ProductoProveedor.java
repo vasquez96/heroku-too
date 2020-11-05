@@ -12,7 +12,6 @@ public class ProductoProveedor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idProductoProveedor;
 
-
 	@Column
 	private String nombreProductoProveedor;
 	@Column
@@ -31,17 +30,14 @@ public class ProductoProveedor {
 	private Date fechaVigenciaFinal;
 	@Column
 	private String unidad;
-	@Column
-	private String direccion;
 
 	@ManyToOne
 	@JoinColumn(name = "idProveedor")
 	private Proveedor idProveedor;
 
 	public ProductoProveedor(Long idProductoProveedor, String nombreProductoProveedor, int periodoDeGracia,
-							 float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
-							 Date fechaVigenciaFinal, String unidad, String direccion, Proveedor idProveedor) {
-
+			float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
+			Date fechaVigenciaFinal, String unidad, Proveedor idProveedor) {
 		this.idProductoProveedor = idProductoProveedor;
 		this.nombreProductoProveedor = nombreProductoProveedor;
 		this.periodoDeGracia = periodoDeGracia;
@@ -51,7 +47,6 @@ public class ProductoProveedor {
 		this.fechaVigenciaInicio = fechaVigenciaInicio;
 		this.fechaVigenciaFinal = fechaVigenciaFinal;
 		this.unidad = unidad;
-		this.direccion = direccion;
 		this.idProveedor = idProveedor;
 	}
 
@@ -131,14 +126,6 @@ public class ProductoProveedor {
 		this.unidad = unidad;
 	}
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
 	public Proveedor getIdProveedor() {
 		return idProveedor;
 	}
@@ -178,7 +165,6 @@ public class ProductoProveedor {
 				+ nombreProductoProveedor + ", periodoDeGracia=" + periodoDeGracia + ", descuento=" + descuento
 				+ ", numExistencia=" + numExistencia + ", cantidadExistencia=" + cantidadExistencia
 				+ ", fechaVigenciaInicio=" + fechaVigenciaInicio + ", fechaVigenciaFinal=" + fechaVigenciaFinal
-				+ ", unidad=" + unidad + ", direccion=" + direccion + ", idProveedor=" + idProveedor + "]";
+				+ ", unidad=" + unidad + ", idProveedor=" + idProveedor + "]";
 	}
-
 }

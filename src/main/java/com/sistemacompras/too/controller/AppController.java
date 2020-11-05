@@ -23,9 +23,9 @@ public class AppController {
       return "dashboardAdmin";
   }
 
-    @GetMapping("/jefe")
-	public ModelAndView jefeDashboard() {
-		return new ModelAndView("dashboardJefe");
+  @GetMapping("/jefe")
+  public String jefeDashboard() {
+        return "RequisicionJefeDepartamento/index";
 	}
 	
 	@GetMapping("/proveedor")

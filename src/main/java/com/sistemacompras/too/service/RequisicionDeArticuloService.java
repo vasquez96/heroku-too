@@ -29,5 +29,4 @@ public class RequisicionDeArticuloService {
     public void delete(Long id){
         requisicionDeArticuloRepository.deleteById(id);
     }
-    
 }

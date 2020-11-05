@@ -40,6 +40,14 @@ public class RequisicionController {
         return "RequisicionJefeDepartamento/crearRequisicion";
     }
 
+    //Listar las requisiciones.
+    @RequestMapping("/requisicion")
+    public String viewHomePage(Model model){
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
+        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
+        return "RequisicionJefeDepartamento/index"; //Nombre del html
+    }
+
     //Metodo que guarda una requisicion
     @RequestMapping(value = "/requisicion/save", method = RequestMethod.POST)
     public String guardarRequisicion(
@@ -48,35 +56,27 @@ public class RequisicionController {
         //Creando una requisicion de articulo
         RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
         requisicionDeArticuloService.save(requisicionDeArticulo);
-        System.out.println("Datos de cantidad: " + cantidad.size());
-        System.out.println("Datos de articulo: " + articulo.size());
+        //System.out.println("Datos de cantidad: " + cantidad.size());
+        //System.out.println("Datos de articulo: " + articulo.size());
         //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
         for(int i = 0; i <= cantidad.size(); i++){ //Inicio ciclo for
-            System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
+            //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
             //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
             //Creando una instancia de producto requisicion
             ProductoRequisicion productoRequisicion = new ProductoRequisicion();
             ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-            System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
+            //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
             //Agrengando la cantidad pedida del articulo
             productoRequisicion.setCantidad(cantidad.get(i));
             //Agregando el producto solicitado
             productoRequisicion.setIdProductoProveedor(productoProveedor);
             //Agregando la requisicion
             productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-            System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
+            //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
             //Guardando los productos de la requisicion
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
-        return "redirect:/jefe";
-    }
-
-    //Listar las requisiciones.
-    @GetMapping("/requisicion")
-    public String viewHomePage(Model model){
-        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
-        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
-        return "RequisicionJefeDepartamento/index"; //Nombre del html
+        return "RequisicionJefeDepartamento/index";
     }
 
     //Ver las requisiciones.
@@ -95,6 +95,28 @@ public class RequisicionController {
         mav.addObject("productoRequisicion", productoRequisicion);
         return mav;
     }
+
+    //Editar las requisiciones.
+    @RequestMapping("/requisicion/edit/{id}")
+    public ModelAndView editarRequisicion(@PathVariable(name = "id") Long id, Model model){
+        ModelAndView mav = new ModelAndView("RequisicionJefeDepartamento/editarRequisicion");
+        RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
+
+        //Obteniendo los productos por medio del id de la requisicion
+        List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
+
+        for (ProductoRequisicion nombre : productoRequisicion) {
+            System.out.println(nombre.toString());
+        }
+        //Obteniendo todos los productos
+        List<ProductoProveedor> listProductos = productoService.listAll();
+        //Enviando los productos a la vista
+        model.addAttribute("listProductos", listProductos);
+        model.addAttribute("idReq", id);
+        // System.out.println(requisicionDeArticulo.toString());
+        mav.addObject("productoRequisicion", productoRequisicion);
+        return mav;
+    }
     //Eliminar requisicion
     @RequestMapping("/requisicion/eliminar/{id}")
     public String deleteRequisicion(@PathVariable(name = "id") Long id){
@@ -108,5 +130,42 @@ public class RequisicionController {
 
         requisicionDeArticuloService.delete(id);
         return "redirect:/jefe/requisicion";
+    }
+
+    //Metodo que guarda la requisicion editada
+    @RequestMapping(value = "/requisicion/editar/", method = RequestMethod.POST)
+    public String editarRequisicion(
+            @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
+            @RequestParam(name = "articulo") ArrayList<Long> articulo,
+            @RequestParam(name = "i") Long id) {
+        System.out.println("Id de la requisicio: " + id);
+        System.out.println("Buscando por id-------- ");
+        //Buscando los productos de la requisicion que corresponden al id de la requisicion
+        List<ProductoRequisicion> listaProductoRequisicion = productoRequisicionService.listadoPorId(id);
+        List<ProductoRequisicion> auxiliarListaProductoRequisicion = listaProductoRequisicion;
+        System.out.println("Eliminando articulo ----------");
+        for(int i = 0; i <= listaProductoRequisicion.size(); i++){
+            System.out.println(listaProductoRequisicion.get(i).toString());
+            productoRequisicionService.delete(listaProductoRequisicion.get(i).getIdProductoRequisicion());
+        }
+        RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
+        //Ciclo que recorre la cantidad de datos solicitados para la requisicion
+        for(int i = 0; i <= cantidad.size(); i++){ //Inicio ciclo for
+//            if(listaProductoRequisicion.get(i).getIdProductoProveedor().toString() == productoService.get(articulo.get(i)).getIdProductoProveedor().toString()){
+//                listaProductoRequisicion.get(i).setCantidad(cantidad.get(i));
+//            }
+            //Creando una instancia de producto requisicion
+            ProductoRequisicion productoRequisicion = new ProductoRequisicion();
+            ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
+            //Agrengando la cantidad pedida del articulo
+            productoRequisicion.setCantidad(cantidad.get(i));
+            //Agregando el producto solicitado
+            productoRequisicion.setIdProductoProveedor(productoProveedor);
+            //Guardando los productos de la requisicion
+            //Agregando la requisicion
+            productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+            productoRequisicionService.save(productoRequisicion);
+        } //Fin ciclo for
+        return "redirect: /jefe/requisicion";
     }
 }

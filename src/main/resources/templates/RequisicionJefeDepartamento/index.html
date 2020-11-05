@@ -37,8 +37,8 @@
                     <h2>Listar requisiciones del departamento</h2>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-success text-right" href=""> <i
-                            class="fas fa-calendar-plus"></i>
+                    <a class="btn btn-success text-right" th:href="@{/jefe/requisicion/crear}"> <i
+                            class="fas fa-plus-square">  Crear requisición</i>
                     </a>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
                             <td><a
-                                    th:href="@{/RequisicionJefeDepartamento/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
+                                    th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
                                 <a
                                         th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
                                 <a

@@ -137,20 +137,20 @@ public class RequisicionController {
     public String editarRequisicion(
             @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
             @RequestParam(name = "articulo") ArrayList<Long> articulo,
-            @RequestParam(name = "i") Long id) {
+            @RequestParam(name = "isss") Long id) {
         System.out.println("Id de la requisicio: " + id);
         System.out.println("Buscando por id-------- ");
         //Buscando los productos de la requisicion que corresponden al id de la requisicion
         List<ProductoRequisicion> listaProductoRequisicion = productoRequisicionService.listadoPorId(id);
         List<ProductoRequisicion> auxiliarListaProductoRequisicion = listaProductoRequisicion;
         System.out.println("Eliminando articulo ----------");
-        for(int i = 0; i <= listaProductoRequisicion.size(); i++){
+        for(int i = 0; i < listaProductoRequisicion.size(); i++){
             System.out.println(listaProductoRequisicion.get(i).toString());
             productoRequisicionService.delete(listaProductoRequisicion.get(i).getIdProductoRequisicion());
         }
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
         //Ciclo que recorre la cantidad de datos solicitados para la requisicion
-        for(int i = 0; i <= cantidad.size(); i++){ //Inicio ciclo for
+        for(int i = 0; i < cantidad.size(); i++){ //Inicio ciclo for
 //            if(listaProductoRequisicion.get(i).getIdProductoProveedor().toString() == productoService.get(articulo.get(i)).getIdProductoProveedor().toString()){
 //                listaProductoRequisicion.get(i).setCantidad(cantidad.get(i));
 //            }
@@ -166,6 +166,6 @@ public class RequisicionController {
             productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
-        return "redirect: /jefe/requisicion";
+        return "redirect:/jefe/requisicion";
     }
 }

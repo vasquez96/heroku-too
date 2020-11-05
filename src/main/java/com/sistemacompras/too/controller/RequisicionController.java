@@ -84,7 +84,6 @@ public class RequisicionController {
     public ModelAndView showProductPage(@PathVariable(name = "id") Long id){
         ModelAndView mav = new ModelAndView("RequisicionJefeDepartamento/view");
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
-        
         List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
 
         for (ProductoRequisicion nombre : productoRequisicion) {
@@ -93,6 +92,7 @@ public class RequisicionController {
          
        // System.out.println(requisicionDeArticulo.toString());
         mav.addObject("productoRequisicion", productoRequisicion);
+        mav.addObject("requisicionArticulo", requisicionDeArticulo);
         return mav;
     }
 

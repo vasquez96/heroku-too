@@ -45,40 +45,38 @@
 					<div
 						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
 						<!-- ESCRIBIR CODIGO AQU� -->
-						<form ction="#" th:action="@{/ProductoProveedor/save}" th:object="${productoProveedor}"a method="post">
+						<form action="#" th:action="@{/proveedor/ProductoProveedor/save}"
+							th:object="${productoProveedor}" a method="post">
 
-        <p>Id de proveedor (temporal):</p>
-        <input type="number" th:field="*{idProveedor}">
-        
-        <p>Nombre del producto:</p>
-        <input type="text" th:field="*{nombreProductoProveedor}">
-        
-        <p>Periodo de gracia:</p>
-        <input type="number" th:field="*{periodoDeGracia}">
-        
-        <p>Descuento:</p>
-        <input type="number" th:field="*{descuento}">
-        
-        <p>Nuemro de existencia:</p>
-        <input type="number" th:field="*{numExistencia}">
-        
-         <p>Cantidad de existencia:</p>
-        <input type="number" th:field="*{cantidadExistencia}">
-        
-                <p>Fecha de inicio de promocion:</p>
-        <input type="date" th:field="*{fechaVigenciaInicio}">
-        
-                <p>Fecha de final de promocion:</p>
-        <input type="date" th:field="*{fechaVigenciaFinal}">
+							<p>Nombre del producto:</p>
+							<input type="text" th:field="*{nombreProductoProveedor}">
 
-         <p>Unidad:</p>
-        <input type="text" th:field="*{unidad}">
-          <p>Direccion:</p>
-        <input type="text" th:field="*{direccion}">
-        
-        <button type="submit">Guardar</button>
-    </form>
-						
+							<p>Periodo de gracia:</p>
+							<input type="number" th:field="*{periodoDeGracia}">
+
+							<p>Descuento:</p>
+							<input type="number" th:field="*{descuento}">
+
+							<p>Nuemro de existencia:</p>
+							<input type="number" th:field="*{numExistencia}">
+
+							<p>Cantidad de existencia:</p>
+							<input type="number" th:field="*{cantidadExistencia}">
+
+							<p>Fecha de inicio de promocion:</p>
+							<input type="date" th:field="*{fechaVigenciaInicio}">
+
+							<p>Fecha de final de promocion:</p>
+							<input type="date" th:field="*{fechaVigenciaFinal}">
+
+							<p>Unidad:</p>
+							<input type="text" th:field="*{unidad}">
+							<p>Direccion:</p>
+							<input type="text" th:field="*{direccion}">
+
+							<button type="submit">Guardar</button>
+						</form>
+
 					</div>
 				</div>
 			</div>

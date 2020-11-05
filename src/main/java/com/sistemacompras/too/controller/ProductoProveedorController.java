@@ -43,8 +43,10 @@ public class ProductoProveedorController {
     //Ruta para crear un nuevo producto
     @RequestMapping(value = "/ProductoProveedor/save", method = RequestMethod.POST)
     public String saveProduct(@ModelAttribute("productoProveedor") ProductoProveedor productoProveedor){
+    	Proveedor proveedor = ProveedorService.get(Long.valueOf(4));
+    	productoProveedor.setIdProveedor(proveedor);
         service.save(productoProveedor);
-        return "redirect:/ProductoProveedor";
+        return "redirect:/proveedor/ProductoProveedor";
     }
     
     //Editar un producto de proveedor

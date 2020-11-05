@@ -22,7 +22,7 @@ public class ProveedorService {
     public void save(Proveedor Proveedor){
         repository.save(Proveedor);
     }
-    //Obtiene un producto por su id
+    //Obtiene un proveedor por su id
     public Proveedor get(Long id){
         return repository.findById(id).get();
     }

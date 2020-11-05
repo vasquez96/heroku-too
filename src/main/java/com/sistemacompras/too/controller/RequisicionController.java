@@ -59,7 +59,7 @@ public class RequisicionController {
         //System.out.println("Datos de cantidad: " + cantidad.size());
         //System.out.println("Datos de articulo: " + articulo.size());
         //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
-        for(int i = 0; i <= cantidad.size(); i++){ //Inicio ciclo for
+        for(int i = 0; i < cantidad.size(); i++){ //Inicio ciclo for
             //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
             //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
             //Creando una instancia de producto requisicion
@@ -76,7 +76,7 @@ public class RequisicionController {
             //Guardando los productos de la requisicion
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
-        return "RequisicionJefeDepartamento/index";
+        return "redirect:/jefe/requisicion";
     }
 
     //Ver las requisiciones.

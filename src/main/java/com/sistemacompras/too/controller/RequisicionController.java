@@ -95,4 +95,18 @@ public class RequisicionController {
         mav.addObject("productoRequisicion", productoRequisicion);
         return mav;
     }
+    //Eliminar requisicion
+    @RequestMapping("/requisicion/eliminar/{id}")
+    public String deleteRequisicion(@PathVariable(name = "id") Long id){
+
+        List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
+
+        for (ProductoRequisicion proreq : productoRequisicion) {
+            if (proreq.getIdRequisicionDeArticuloEnLong() == id)
+                productoRequisicionService.delete(proreq.getIdProductoRequisicion());
+        }
+
+        requisicionDeArticuloService.delete(id);
+        return "redirect:/jefe/requisicion";
+    }
 }

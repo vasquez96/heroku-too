@@ -2,6 +2,7 @@ package com.sistemacompras.too.controller;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,8 +54,12 @@ public class RequisicionController {
     public String guardarRequisicion(
             @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
             @RequestParam(name = "articulo") ArrayList<Long> articulo) {
+        //Creando una instancia de fecha para capturar la fecha del hoy
+        Date fecha = new Date();
         //Creando una requisicion de articulo
         RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
+        //Modificando la fecha de la elaboracion de la requisicion
+        requisicionDeArticulo.setFechaPedido(fecha);
         requisicionDeArticuloService.save(requisicionDeArticulo);
         //System.out.println("Datos de cantidad: " + cantidad.size());
         //System.out.println("Datos de articulo: " + articulo.size());

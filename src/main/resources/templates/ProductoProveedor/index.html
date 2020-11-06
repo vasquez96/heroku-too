@@ -37,8 +37,8 @@
 					<h2>Listar Producto de proveedor</h2>
 				</div>
 				<div class="col-auto">
-					<a class="btn btn-success text-right" href=""> <i
-							class="fas fa-calendar-plus"></i>
+					<a class="btn btn-success text-right" th:href="@{/proveedor/ProductoProveedor/new}"> <i
+							class="fas fa-plus-square">  Crear producto</i>
 					</a>
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 									th:href="@{/proveedor/ProductoProveedor/edit/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-warning">Editar</button></a>
 
 								<a
-										th:href="@{/proveedor/ProductoProveedor/view/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-success">Ver</button></a>
+										th:href="@{ProductoProveedor/view/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-success">Ver</button></a>
 								<a
 										th:href="@{/proveedor/ProductoProveedor/delete/{id}(id=${product.idProductoProveedor})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
 							</td>

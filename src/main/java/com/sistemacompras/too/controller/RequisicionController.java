@@ -41,36 +41,7 @@ public class RequisicionController {
     	List<ProductoProveedor> listProductos = productoService.listAll();
     	ProductoRequisicion productoRequisicion = new ProductoRequisicion();
     	
-    	String x, y;
-    	String b = "soda";
-    	String c = "soda";
-        for(int j = 0; j < listProductos.size(); j++){ //Inicio ciclo for
-            for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
-                if(i != j) 
-                {
-                	x = listProductos.get(i).getNombreProductoProveedor().toLowerCase();
-                	y = listProductos.get(j).getNombreProductoProveedor().toLowerCase();
-                	//listProductos.get(i).getNombreProductoProveedor().equals(listProductos.get(j).getNombreProductoProveedor())
-                	System.out.println(y + " vs " + x + " Posicion: " + j + "\n");                		
-                	if (x.equals(y))
-            		{
-            			listProductos.remove(j);
-            			System.out.println("Entro en la posicion " + (j));    
-            		}
-                }
-            }
-        }
-        
-        for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
-        	listProductos.get(i).setNombreProductoProveedor(listProductos.get(i).getNombreProductoProveedor().toLowerCase());
-        }
-        
-        
-        for (ProductoProveedor producto : listProductos) {
-        	System.out.println(producto.getNombreProductoProveedor());        	
-        }
-    	
-        
+
     	
     	
     	model.addAttribute("listProductos", listProductos);

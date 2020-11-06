@@ -110,7 +110,8 @@
     <script id="nuevaFila" type="text/html">
         <tr>
             <td>
-                <input type="number" th:object="${productoRequisicion}" th:name="cantidad" name="cantidad[]" placeholder="Cantidad" />
+                <input type="number" th:object="${productoRequisicion}" th:name="cantidad" id="cantidad[]" placeholder="Cantidad"
+                       th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : ''"/>
             </td>
             <td>
                 <select style="width: 100%" class="js-example-responsive col-xl-12 form-control" th:name="articulo" name="articulo[]" id="articulo[]">

@@ -5,14 +5,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.validation.Valid;
 
 import com.sistemacompras.too.entity.ProductoRequisicion;
 import com.sistemacompras.too.entity.RequisicionDeArticulo;
 import com.sistemacompras.too.service.ProductoRequisicionService;
 import com.sistemacompras.too.service.RequisicionDeArticuloService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.sistemacompras.too.entity.ProductoProveedor;
@@ -77,6 +81,10 @@ public class RequisicionController {
     //Listar las requisiciones.
     @RequestMapping("/requisicion")
     public String viewHomePage(Model model){
+        Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("\n***********************");
+        System.out.println("\n******** AUTENTICACION ****** " + "\nNOMBRE DE USUARIO-> " +auth.getPrincipal() + "\nROL-> " + auth.getAuthorities());
+        System.out.println("\n***********************\n");
         List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
         model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
         return "RequisicionJefeDepartamento/index"; //Nombre del html
@@ -85,36 +93,41 @@ public class RequisicionController {
     //Metodo que guarda una requisicion
     @RequestMapping(value = "/requisicion/save", method = RequestMethod.POST)
     public String guardarRequisicion(
-            @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
-            @RequestParam(name = "articulo") ArrayList<Long> articulo) {
-        //Creando una instancia de fecha para capturar la fecha del hoy
-        Date fecha = new Date();
-        //Creando una requisicion de articulo
-        RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
-        //Modificando la fecha de la elaboracion de la requisicion
-        requisicionDeArticulo.setFechaPedido(fecha);
-        requisicionDeArticuloService.save(requisicionDeArticulo);
-        //System.out.println("Datos de cantidad: " + cantidad.size());
-        //System.out.println("Datos de articulo: " + articulo.size());
-        //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
-        for(int i = 0; i < cantidad.size(); i++){ //Inicio ciclo for
-            //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
-            //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
-            //Creando una instancia de producto requisicion
-            ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-            ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-            //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
-            //Agrengando la cantidad pedida del articulo
-            productoRequisicion.setCantidad(cantidad.get(i));
-            //Agregando el producto solicitado
-            productoRequisicion.setIdProductoProveedor(productoProveedor);
-            //Agregando la requisicion
-            productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-            //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
-            //Guardando los productos de la requisicion
-            productoRequisicionService.save(productoRequisicion);
-        } //Fin ciclo for
-        return "redirect:/jefe/requisicion";
+            @RequestParam(name = "cantidad") @Valid ArrayList<Integer> cantidad,
+            @RequestParam(name = "articulo") ArrayList<Long> articulo,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "RequisicionJefeDepartamento/crearRequisicion";
+        } else {
+            //Creando una instancia de fecha para capturar la fecha del hoy
+            Date fecha = new Date();
+            //Creando una requisicion de articulo
+            RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
+            //Modificando la fecha de la elaboracion de la requisicion
+            requisicionDeArticulo.setFechaPedido(fecha);
+            requisicionDeArticuloService.save(requisicionDeArticulo);
+            //System.out.println("Datos de cantidad: " + cantidad.size());
+            //System.out.println("Datos de articulo: " + articulo.size());
+            //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
+            for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
+                //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
+                //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
+                //Creando una instancia de producto requisicion
+                ProductoRequisicion productoRequisicion = new ProductoRequisicion();
+                ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
+                //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
+                //Agrengando la cantidad pedida del articulo
+                productoRequisicion.setCantidad(cantidad.get(i));
+                //Agregando el producto solicitado
+                productoRequisicion.setIdProductoProveedor(productoProveedor);
+                //Agregando la requisicion
+                productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+                //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
+                //Guardando los productos de la requisicion
+                productoRequisicionService.save(productoRequisicion);
+            } //Fin ciclo for
+            return "redirect:/jefe/requisicion";
+        }
     }
 
     //Ver las requisiciones.

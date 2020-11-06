@@ -1,5 +1,7 @@
 package com.sistemacompras.too.entity;
 
+import javax.validation.constraints.*;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,8 @@ public class ProductoRequisicion {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idProductoRequisicion;
 
+	@NotNull(message = "La cantidad debe ser obligatoria")
+	@Min(value = 1, message = "La cantidad mínima es 1")
 	@Column
 	private int cantidad;
 

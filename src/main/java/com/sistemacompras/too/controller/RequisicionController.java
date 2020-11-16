@@ -93,12 +93,12 @@ public class RequisicionController {
     //Metodo que guarda una requisicion
     @RequestMapping(value = "/requisicion/save", method = RequestMethod.POST)
     public String guardarRequisicion(
-            @RequestParam(name = "cantidad") @Valid ArrayList<Integer> cantidad,
-            @RequestParam(name = "articulo") ArrayList<Long> articulo,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "RequisicionJefeDepartamento/crearRequisicion";
-        } else {
+            @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
+            @RequestParam(name = "articulo") ArrayList<Long> articulo
+            ) {
+//        if (bindingResult.hasErrors()) {
+//            return "RequisicionJefeDepartamento/crearRequisicion";
+//        } else {
             //Creando una instancia de fecha para capturar la fecha del hoy
             Date fecha = new Date();
             //Creando una requisicion de articulo
@@ -127,7 +127,7 @@ public class RequisicionController {
                 productoRequisicionService.save(productoRequisicion);
             } //Fin ciclo for
             return "redirect:/jefe/requisicion";
-        }
+        //}
     }
 
     //Ver las requisiciones.

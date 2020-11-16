@@ -47,8 +47,8 @@
                         <h1> Lista de artículos </h1>
                         <form action="#" id="tabla" method="post" th:action="@{/jefe/requisicion/editar/}">
                             <input type="hidden" th:name="isss"
-                               th:value="${productoRequisicion.get(1).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}"
-                               th:text="${productoRequisicion.get(1).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}"></input>
+                               th:value="${productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}"
+                               th:text="${productoRequisicion.get(0).getIdRequisicionDeArticulo().getIdRequisicionDeArticulo()}"></input>
                             <table class="table table-striped" id="lista_productos">
                                 <thead>
                                 <tr>

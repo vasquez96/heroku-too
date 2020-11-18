@@ -12071,3 +12071,9 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
+#observacion{
+    position: absolute;
+    left: 75%;
+    top:30%;
+
+}

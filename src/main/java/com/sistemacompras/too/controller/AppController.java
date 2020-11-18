@@ -32,6 +32,7 @@ public class AppController {
 	public ModelAndView proveedorDashboard() {
 		return new ModelAndView("dashboardProveedor");
 	}
+    }
 //
 //    @GetMapping("/user")
 //    public String user(){
@@ -43,5 +44,9 @@ public class AppController {
 //        return "admin";
 //    }
 
-}
+
+
+
+
+
 

@@ -15,12 +15,12 @@ public class testController {
         return "OrdenesDeCompra/index"; //Nombre del html
     }
 
-//dc
-//    @GetMapping("/requisicionAdmin")
-//    public String dashboardAdmin() { return "RequisicionAdminDepartamento/adminRequisicion.html"; }
+
+   @GetMapping("/requisicionAdmin")
+    public String dashboardAdmin() { return "RequisicionAdminDepartamento/adminRequisicion.html"; }
 
     @GetMapping("/aceptarDenegarAdmin")//http://127.0.0.1:8080/admin/aceptarDenegarAdmin
-    public String dashboardAdmin() {
+    public String dashboardAdminAceptarDenegar() {
         return "RequisicionAdminDepartamento/adminAceptarDenegar.html";
     }
 

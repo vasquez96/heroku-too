@@ -23,6 +23,10 @@ public class RequisicionDeArticulo {
     private Date fechaPedido;
     @Column
     private Date fechaEntrega;
+    
+	 @JoinColumn(name="idEmpleado",unique = true)
+	    @OneToOne(cascade = CascadeType.ALL)
+	    private Empleado idEmpleado;
 
     public RequisicionDeArticulo(Long idRequisicionDeArticulo, String elaboradoPor, String autorizadoPor, String recibidoPor, Date fechaPedido, Date fechaEntrega) {
         this.idRequisicionDeArticulo = idRequisicionDeArticulo;

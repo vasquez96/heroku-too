@@ -21,7 +21,7 @@ public class ProductoProveedor {
 	@Column
 	private int numExistencia;
 	@Column
-	private int cantidadExistencia;
+	private double precio;
 	@Column
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaVigenciaInicio;
@@ -36,14 +36,14 @@ public class ProductoProveedor {
 	private Proveedor idProveedor;
 
 	public ProductoProveedor(Long idProductoProveedor, String nombreProductoProveedor, int periodoDeGracia,
-			float descuento, int numExistencia, int cantidadExistencia, Date fechaVigenciaInicio,
-			Date fechaVigenciaFinal, String unidad, Proveedor idProveedor) {
+			float descuento, int numExistencia, double precio, Date fechaVigenciaInicio, Date fechaVigenciaFinal,
+			String unidad, Proveedor idProveedor) {
 		this.idProductoProveedor = idProductoProveedor;
 		this.nombreProductoProveedor = nombreProductoProveedor;
 		this.periodoDeGracia = periodoDeGracia;
 		this.descuento = descuento;
 		this.numExistencia = numExistencia;
-		this.cantidadExistencia = cantidadExistencia;
+		this.precio = precio;
 		this.fechaVigenciaInicio = fechaVigenciaInicio;
 		this.fechaVigenciaFinal = fechaVigenciaFinal;
 		this.unidad = unidad;
@@ -51,7 +51,6 @@ public class ProductoProveedor {
 	}
 
 	public ProductoProveedor() {
-
 	}
 
 	public Long getIdProductoProveedor() {
@@ -94,12 +93,12 @@ public class ProductoProveedor {
 		this.numExistencia = numExistencia;
 	}
 
-	public int getCantidadExistencia() {
-		return cantidadExistencia;
+	public double getPrecio() {
+		return precio;
 	}
 
-	public void setCantidadExistencia(int cantidadExistencia) {
-		this.cantidadExistencia = cantidadExistencia;
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
 	public Date getFechaVigenciaInicio() {
@@ -163,8 +162,11 @@ public class ProductoProveedor {
 	public String toString() {
 		return "ProductoProveedor [idProductoProveedor=" + idProductoProveedor + ", nombreProductoProveedor="
 				+ nombreProductoProveedor + ", periodoDeGracia=" + periodoDeGracia + ", descuento=" + descuento
-				+ ", numExistencia=" + numExistencia + ", cantidadExistencia=" + cantidadExistencia
-				+ ", fechaVigenciaInicio=" + fechaVigenciaInicio + ", fechaVigenciaFinal=" + fechaVigenciaFinal
-				+ ", unidad=" + unidad + ", idProveedor=" + idProveedor + "]";
+				+ ", numExistencia=" + numExistencia + ", precio=" + precio + ", fechaVigenciaInicio="
+				+ fechaVigenciaInicio + ", fechaVigenciaFinal=" + fechaVigenciaFinal + ", unidad=" + unidad
+				+ ", idProveedor=" + idProveedor + "]";
 	}
+
+	
+	
 }

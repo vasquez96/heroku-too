@@ -7,14 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Empleado {
 	
-	public Empleado() {
-		
-	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idEmpleado;
@@ -34,21 +32,17 @@ public class Empleado {
 	@Column
 	private float salario;
 	
-	 @JoinColumn(name="idRequisicionDeArticulo",unique = true)
-	    @OneToOne(cascade = CascadeType.ALL)
-	    private RequisicionDeArticulo idRequisicionDeArticulo;
-	 
-	 @JoinColumn(name="idDepartamento",unique = true)
-	    @OneToOne(cascade = CascadeType.ALL)
-	    private Departamento idDepartamento;
-	 
-	 @JoinColumn(name="idPuesto",unique = true)
-	    @OneToOne(cascade = CascadeType.ALL)
-	    private Puesto idPuesto;
-	 
+	@ManyToOne
+	@JoinColumn(name = "idDepartamento")
+	private Departamento idDepartamento;
+	
+	@ManyToOne
+	@JoinColumn(name = "idMunicipio")
+	private Municipio idMunicipio;
+
 	public Empleado(Long idEmpleado, String nombreEmpleado, String apellidoEmpleado, String genero, Boolean estadoCivil,
-			String direccionEmpleado, int telefonoEmpleado, float salario,
-			RequisicionDeArticulo idRequisicionDeArticulo, Departamento idDepartamento, Puesto idPuesto) {
+			String direccionEmpleado, int telefonoEmpleado, float salario, Departamento idDepartamento,
+			Municipio idMunicipio) {
 		this.idEmpleado = idEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
 		this.apellidoEmpleado = apellidoEmpleado;
@@ -57,9 +51,11 @@ public class Empleado {
 		this.direccionEmpleado = direccionEmpleado;
 		this.telefonoEmpleado = telefonoEmpleado;
 		this.salario = salario;
-		this.idRequisicionDeArticulo = idRequisicionDeArticulo;
 		this.idDepartamento = idDepartamento;
-		this.idPuesto = idPuesto;
+		this.idMunicipio = idMunicipio;
+	}
+
+	public Empleado() {
 	}
 
 	public Long getIdEmpleado() {
@@ -126,14 +122,6 @@ public class Empleado {
 		this.salario = salario;
 	}
 
-	public RequisicionDeArticulo getIdRequisicionDeArticulo() {
-		return idRequisicionDeArticulo;
-	}
-
-	public void setIdRequisicionDeArticulo(RequisicionDeArticulo idRequisicionDeArticulo) {
-		this.idRequisicionDeArticulo = idRequisicionDeArticulo;
-	}
-
 	public Departamento getIdDepartamento() {
 		return idDepartamento;
 	}
@@ -142,15 +130,14 @@ public class Empleado {
 		this.idDepartamento = idDepartamento;
 	}
 
-	public Puesto getIdPuesto() {
-		return idPuesto;
+	public Municipio getIdMunicipio() {
+		return idMunicipio;
 	}
 
-	public void setIdPuesto(Puesto idPuesto) {
-		this.idPuesto = idPuesto;
+	public void setIdMunicipio(Municipio idMunicipio) {
+		this.idMunicipio = idMunicipio;
 	}
 
-	 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -181,10 +168,12 @@ public class Empleado {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", apellidoEmpleado="
 				+ apellidoEmpleado + ", genero=" + genero + ", estadoCivil=" + estadoCivil + ", direccionEmpleado="
 				+ direccionEmpleado + ", telefonoEmpleado=" + telefonoEmpleado + ", salario=" + salario
-				+ ", idRequisicionDeArticulo=" + idRequisicionDeArticulo + ", idDepartamento=" + idDepartamento
-				+ ", idPuesto=" + idPuesto + "]";
+				+ ", idDepartamento=" + idDepartamento + ", idMunicipio=" + idMunicipio + "]";
 	}
+
 	
 	
+	
+	      
 	 
 }

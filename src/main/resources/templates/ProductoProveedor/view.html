@@ -1,46 +1,80 @@
 <!DOCTYPE html>
-<html lang="" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-<meta charset="UTF-8">
-<title>Ver Producto</title>
+	<title>Ver Producto</title>
+	<div layout:fragment="style_css">
+		<!-- Aqui va el codigo CSS extra que se quiera agregar -->
+	</div>
 </head>
 <body>
+	<div layout:fragment="item_menu">
+		<!-- Aqui van las opciones del menu lateral -->
+		<!-- Nav Item - Dashboard -->
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+	</div>
+
 	<div align="center">
 		<h1>Ver Producto</h1>
 		<br>
 		<div th:object="${productoProveedor}">
+			<div>
+				<table class="separado" border="1">
+		<tr>
+			<td><p>Nombre del producto:</p></td>
+			<td><p class="p-2" th:text="${productoProveedor.nombreProductoProveedor}"
+				th:value="${productoProveedor.nombreProductoProveedor}"></p></td>
+		</tr>
 
-			<p>Nombre del producto:</p>
-			<p class="p-2" th:text="${productoProveedor.nombreProductoProveedor}"
-				th:value="${productoProveedor.nombreProductoProveedor}"></p>
+		<tr>
+			<td><p>Periodo de gracia:</p></td>
+			<td><p class="p-2" th:text="${productoProveedor.periodoDeGracia}"
+				th:value="${productoProveedor.periodoDeGracia}"></p></td>
+		</tr>
 
-			<p>Periodo de gracia:</p>
-			<p class="p-2" th:text="${productoProveedor.periodoDeGracia}"
-				th:value="${productoProveedor.periodoDeGracia}"></p>
+		<tr>
+			<td><p>Descuento:</p></td>
+			<td><p class="p-2" th:text="${productoProveedor.descuento}"
+				th:value="${productoProveedor.descuento}"></p></td>
+		</tr>
 
-			<p>Descuento:</p>
-			<p class="p-2" th:text="${productoProveedor.descuento}"
-				th:value="${productoProveedor.descuento}"></p>
-
-			<p>Nuemro de existencia:</p>
-			<p class="p-2" th:text="${productoProveedor.numExistencia}"
+		<tr>
+		<td><p>Nuemero de existencia:</p>
+		<td><p class="p-2" th:text="${productoProveedor.numExistencia}"
 				th:value="${productoProveedor.numExistencia}"></p>
+		</tr>
 
-			<p>Cantidad de existencia:</p>
-			<p class="p-2" th:text="${productoProveedor.cantidadExistencia}"
+		<tr>
+		<td><p>Cantidad de existencia:</p>
+		<td><p class="p-2" th:text="${productoProveedor.cantidadExistencia}"
 				th:value="${productoProveedor.cantidadExistencia}"></p>
+		</tr>
 
-			<p>Fecha de inicio de promocion:</p>
-			<p class="p-2" th:text="${productoProveedor.fechaVigenciaInicio}"
+		<tr>
+		<td><p>Fecha de inicio de promocion:</p>
+		<td><p class="p-2" th:text="${productoProveedor.fechaVigenciaInicio}"
 				th:value="${productoProveedor.fechaVigenciaInicio}"></p>
+		</tr>
 
-			<p>Fecha de final de promocion:</p>
-			<p class="p-2" th:text="${productoProveedor.fechaVigenciaFinal}"
+		<tr>
+		<td><p>Fecha de final de promocion:</p>
+		<td><p class="p-2" th:text="${productoProveedor.fechaVigenciaFinal}"
 				th:value="${productoProveedor.fechaVigenciaFinal}"></p>
+		</tr>
 
-			<p>Unidad:</p>
-			<p class="p-2" th:text="${productoProveedor.unidad}"
+		<tr>
+		<td><p>Unidad:</p>
+		<td><p class="p-2" th:text="${productoProveedor.unidad}"
 				th:value="${productoProveedor.unidad}"></p>
+		</tr>
+			</div>
 
 		</div>
 	</div>

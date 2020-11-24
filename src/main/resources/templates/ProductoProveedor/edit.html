@@ -12,9 +12,6 @@
 			th:object="${productoProveedor}" method="post">
 
 
-			<p>Id del producto:</p>
-			<input type="text" th:field="*{idProductoProveedor}">
-
 			<p>Nombre del producto:</p>
 			<input type="text" th:field="*{nombreProductoProveedor}">
 
@@ -24,11 +21,11 @@
 			<p>Descuento:</p>
 			<input type="number" th:field="*{descuento}">
 
-			<p>Nuemro de existencia:</p>
-			<input type="number" th:field="*{numExistencia}">
-
 			<p>Cantidad de existencia:</p>
-			<input type="number" th:field="*{cantidadExistencia}">
+			<input type="number" th:field="*{numExistencia}">
+			
+			<p>Cantidad de existencia:</p>
+			<input type="number" th:field="*{precio}">
 
 			<p>Fecha de inicio de promocion:</p>
 			<input type="date" th:field="*{fechaVigenciaInicio}">

@@ -71,8 +71,15 @@ public class ProductoProveedorController {
     
     //Ruta para crear un nuevo producto
     @RequestMapping(value = "/ProductoProveedor/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("productoProveedor") ProductoProveedor productoProveedor){
-    	Proveedor proveedor = ProveedorService.get(Long.valueOf(4));
+    public String saveProduct(@ModelAttribute("productoProveedor") ProductoProveedor productoProveedor, HttpServletRequest request){
+        //Guardamos el username del usuario activo  en la variable username
+    	String username = request.getUserPrincipal().getName();
+        //Se le asigna a userId el id de usuario que tiene la cuenta activa.
+    	Long userId = userService.getIdByUsername(username);
+    	//Se le da como parametro el id de usuasrio y se obtiene el id de proveedor
+    	Long idProveedor = ProveedorService.getidByUserId(userId);
+    	
+    	Proveedor proveedor = ProveedorService.get(idProveedor);
     	productoProveedor.setIdProveedor(proveedor);
         service.save(productoProveedor);
         return "redirect:/proveedor/ProductoProveedor";
@@ -95,7 +102,6 @@ public class ProductoProveedorController {
         mav.addObject("productoProveedor", productoProveedor);
         return mav;
     }
-    
     
     //Eliminar un producto de proveedor
     @RequestMapping("/ProductoProveedor/delete/{id}")

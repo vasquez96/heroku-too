@@ -31,10 +31,10 @@ public class Proveedor {
    
 	@ManyToOne
 	@JoinColumn(name = "idMunicipio")
-	private Proveedor idMunicipio;
+	private Municipio idMunicipio;
 
 	public Proveedor(Long idProveedor, String nombreProveedor, String apellidoProveedor, String generoProveedor,
-			String direccionProveedor, int telefonoProveedor, User idUser, Proveedor idMunicipio) {
+			String direccionProveedor, int telefonoProveedor, User idUser, Municipio idMunicipio) {
 		this.idProveedor = idProveedor;
 		this.nombreProveedor = nombreProveedor;
 		this.apellidoProveedor = apellidoProveedor;
@@ -46,6 +46,7 @@ public class Proveedor {
 	}
 
 	public Proveedor() {
+
 	}
 
 	public Long getIdProveedor() {
@@ -104,11 +105,11 @@ public class Proveedor {
 		this.idUser = idUser;
 	}
 
-	public Proveedor getIdMunicipio() {
+	public Municipio getIdMunicipio() {
 		return idMunicipio;
 	}
 
-	public void setIdMunicipio(Proveedor idMunicipio) {
+	public void setIdMunicipio(Municipio idMunicipio) {
 		this.idMunicipio = idMunicipio;
 	}
 
@@ -144,5 +145,7 @@ public class Proveedor {
 				+ direccionProveedor + ", telefonoProveedor=" + telefonoProveedor + ", idUser=" + idUser
 				+ ", idMunicipio=" + idMunicipio + "]";
 	}
+
+	
 		
 }

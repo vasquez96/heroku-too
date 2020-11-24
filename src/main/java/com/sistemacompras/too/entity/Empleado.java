@@ -39,10 +39,14 @@ public class Empleado {
 	@ManyToOne
 	@JoinColumn(name = "idMunicipio")
 	private Municipio idMunicipio;
+	
+	 @JoinColumn(name="idUser",unique = true)
+	 @OneToOne(cascade = CascadeType.ALL)
+     private User idUser;
 
 	public Empleado(Long idEmpleado, String nombreEmpleado, String apellidoEmpleado, String genero, Boolean estadoCivil,
 			String direccionEmpleado, int telefonoEmpleado, float salario, Departamento idDepartamento,
-			Municipio idMunicipio) {
+			Municipio idMunicipio, User idUser) {
 		this.idEmpleado = idEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
 		this.apellidoEmpleado = apellidoEmpleado;
@@ -53,6 +57,7 @@ public class Empleado {
 		this.salario = salario;
 		this.idDepartamento = idDepartamento;
 		this.idMunicipio = idMunicipio;
+		this.idUser = idUser;
 	}
 
 	public Empleado() {
@@ -138,6 +143,14 @@ public class Empleado {
 		this.idMunicipio = idMunicipio;
 	}
 
+	public User getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -168,12 +181,8 @@ public class Empleado {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", apellidoEmpleado="
 				+ apellidoEmpleado + ", genero=" + genero + ", estadoCivil=" + estadoCivil + ", direccionEmpleado="
 				+ direccionEmpleado + ", telefonoEmpleado=" + telefonoEmpleado + ", salario=" + salario
-				+ ", idDepartamento=" + idDepartamento + ", idMunicipio=" + idMunicipio + "]";
+				+ ", idDepartamento=" + idDepartamento + ", idMunicipio=" + idMunicipio + ", idUser=" + idUser + "]";
 	}
 
-	
-	
-	
-	      
-	 
+ 
 }

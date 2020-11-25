@@ -6,11 +6,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
-import com.sistemacompras.too.entity.ProductoRequisicion;
-import com.sistemacompras.too.entity.RequisicionDeArticulo;
-import com.sistemacompras.too.service.ProductoRequisicionService;
-import com.sistemacompras.too.service.RequisicionDeArticuloService;
+import com.sistemacompras.too.entity.*;
+import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,8 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.sistemacompras.too.entity.ProductoProveedor;
-import com.sistemacompras.too.service.ProductoProveedorService;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -34,6 +31,12 @@ public class RequisicionController {
     private RequisicionDeArticuloService requisicionDeArticuloService;
 	@Autowired
     private ProductoRequisicionService productoRequisicionService;
+    @Autowired
+    private EmpleadoService empleadoService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private com.sistemacompras.too.service.ProveedorService ProveedorService;
 
 	//Metodo que lleva a la vista de crear requisicion
     @GetMapping("/requisicion/crear")
@@ -69,10 +72,7 @@ public class RequisicionController {
         for (ProductoProveedor producto : listProductos) {
         	System.out.println(producto.getNombreProductoProveedor());        	
         }
-    	
-        
-    	
-    	
+
     	model.addAttribute("listProductos", listProductos);
     	model.addAttribute("productoRequisicion", productoRequisicion);
         return "RequisicionJefeDepartamento/crearRequisicion";
@@ -80,12 +80,28 @@ public class RequisicionController {
 
     //Listar las requisiciones.
     @RequestMapping("/requisicion")
-    public String viewHomePage(Model model){
-        Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("\n***********************");
-        System.out.println("\n******** AUTENTICACION ****** " + "\nNOMBRE DE USUARIO-> " +auth.getPrincipal() + "\nROL-> " + auth.getAuthorities());
-        System.out.println("\n***********************\n");
-        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
+    public String viewHomePage(Model model,  HttpServletRequest request){
+        //Guardamos el username del usuario activo  en la variable username
+        String username = request.getUserPrincipal().getName();
+        //Se le asigna a userId el id de usuario que tiene la cuenta activa.
+        Long userId = userService.getIdByUsername(username);
+        //Se obtiene el idEmpleado por el idUser
+        Long idEmpleado = empleadoService.getidByUserId(userId);
+        Empleado empleado = empleadoService.get(idEmpleado);
+
+        //Se crea una lista con todoas las requisiciones
+        List<RequisicionDeArticulo> listRequisicionDeArticuloall = requisicionDeArticuloService.listAll();
+        //Se crea lista para ingresar las requisiciones que sean del departamento de quien tiene la sesion activa
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = new ArrayList();
+
+        for (RequisicionDeArticulo requisicionDeArticulo : listRequisicionDeArticuloall) {
+            //Si el idProveedor coinciden se añadiran a la nueva lista
+            if(requisicionDeArticulo.getIdDepartamento().getIdDepartamento().toString().equals(empleado.getIdDepartamento().getIdDepartamento().toString()))
+            {
+                listRequisicionDeArticulo.add(requisicionDeArticulo);
+            }
+
+        }
         model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
         return "RequisicionJefeDepartamento/index"; //Nombre del html
     }
@@ -94,39 +110,58 @@ public class RequisicionController {
     @RequestMapping(value = "/requisicion/save", method = RequestMethod.POST)
     public String guardarRequisicion(
             @RequestParam(name = "cantidad") ArrayList<Integer> cantidad,
-            @RequestParam(name = "articulo") ArrayList<Long> articulo
-            ) {
+            @RequestParam(name = "articulo") ArrayList<Long> articulo,
+            HttpServletRequest request
+    ) {
 //        if (bindingResult.hasErrors()) {
 //            return "RequisicionJefeDepartamento/crearRequisicion";
 //        } else {
-            //Creando una instancia de fecha para capturar la fecha del hoy
-            Date fecha = new Date();
-            //Creando una requisicion de articulo
-            RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
-            //Modificando la fecha de la elaboracion de la requisicion
-            requisicionDeArticulo.setFechaPedido(fecha);
-            requisicionDeArticuloService.save(requisicionDeArticulo);
-            //System.out.println("Datos de cantidad: " + cantidad.size());
-            //System.out.println("Datos de articulo: " + articulo.size());
-            //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
-            for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
-                //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
-                //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
-                //Creando una instancia de producto requisicion
-                ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-                ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-                //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
-                //Agrengando la cantidad pedida del articulo
-                productoRequisicion.setCantidad(cantidad.get(i));
-                //Agregando el producto solicitado
-                productoRequisicion.setIdProductoProveedor(productoProveedor);
-                //Agregando la requisicion
-                productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-                //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
-                //Guardando los productos de la requisicion
-                productoRequisicionService.save(productoRequisicion);
-            } //Fin ciclo for
-            return "redirect:/jefe/requisicion";
+        //Creando una instancia de fecha para capturar la fecha del hoy
+        Date fecha = new Date();
+        //Creando una requisicion de articulo
+        RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
+        //Modificando la fecha de la elaboracion de la requisicion
+        requisicionDeArticulo.setFechaPedido(fecha);
+        //Guardamos el username del usuario activo  en la variable username
+        String username = request.getUserPrincipal().getName();
+        //Se le asigna a userId el id de usuario que tiene la cuenta activa.
+        Long userId = userService.getIdByUsername(username);
+        //Se le da como parametro el id de usuasrio y se obtiene el id de empleado
+        Long idEmpleado = empleadoService.getidByUserId(userId);
+        // Se crea un objeto de tipo empleado y se llena con el metodo get
+        Empleado empleado = empleadoService.get(idEmpleado);
+
+        //A la requisicion que se esta creando se le asigna un empleado
+        requisicionDeArticulo.setIdEmpleado(empleado);
+        //A la requisicion que se esta creando se le asigna el nombre y apellido de quien lo elabora
+        String elaboradoPor = empleado.getNombreEmpleado() + " " + empleado.getApellidoEmpleado();
+        requisicionDeArticulo.setElaboradoPor(elaboradoPor);
+        requisicionDeArticulo.setIdDepartamento(empleado.getIdDepartamento());
+
+
+        //Se guarda la requisicion
+        requisicionDeArticuloService.save(requisicionDeArticulo);
+        //System.out.println("Datos de cantidad: " + cantidad.size());
+        //System.out.println("Datos de articulo: " + articulo.size());
+        //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
+        for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
+            //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
+            //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
+            //Creando una instancia de producto requisicion
+            ProductoRequisicion productoRequisicion = new ProductoRequisicion();
+            ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
+            //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
+            //Agrengando la cantidad pedida del articulo
+            productoRequisicion.setCantidad(cantidad.get(i));
+            //Agregando el producto solicitado
+            productoRequisicion.setIdProductoProveedor(productoProveedor);
+            //Agregando la requisicion
+            productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+            //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
+            //Guardando los productos de la requisicion
+            productoRequisicionService.save(productoRequisicion);
+        } //Fin ciclo for
+        return "redirect:/jefe/requisicion";
         //}
     }
 

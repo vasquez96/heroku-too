@@ -2,6 +2,7 @@ package com.sistemacompras.too.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class RequisicionDeArticulo {
@@ -23,13 +24,16 @@ public class RequisicionDeArticulo {
     private Date fechaPedido;
     @Column
     private Date fechaEntrega;
-    
-	 @JoinColumn(name="idEmpleado",unique = true)
-	    @OneToOne(cascade = CascadeType.ALL)
-	    private Empleado idEmpleado;
 
-	public RequisicionDeArticulo(Long idRequisicionDeArticulo, String elaboradoPor, String autorizadoPor,
-			String recibidoPor, Date fechaPedido, Date fechaEntrega, Empleado idEmpleado) {
+	@ManyToOne
+	@JoinColumn(name = "idEmpleado")
+	private Empleado idEmpleado;
+
+	@ManyToOne
+	@JoinColumn(name = "idDepartamento")
+	private Departamento idDepartamento;
+
+	public RequisicionDeArticulo(Long idRequisicionDeArticulo, String elaboradoPor, String autorizadoPor, String recibidoPor, Date fechaPedido, Date fechaEntrega, Empleado idEmpleado, Departamento idDepartamento) {
 		this.idRequisicionDeArticulo = idRequisicionDeArticulo;
 		this.elaboradoPor = elaboradoPor;
 		this.autorizadoPor = autorizadoPor;
@@ -37,6 +41,7 @@ public class RequisicionDeArticulo {
 		this.fechaPedido = fechaPedido;
 		this.fechaEntrega = fechaEntrega;
 		this.idEmpleado = idEmpleado;
+		this.idDepartamento = idDepartamento;
 	}
 
 	public Long getIdRequisicionDeArticulo() {
@@ -95,38 +100,38 @@ public class RequisicionDeArticulo {
 		this.idEmpleado = idEmpleado;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idRequisicionDeArticulo == null) ? 0 : idRequisicionDeArticulo.hashCode());
-		return result;
+	public Departamento getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(Departamento idDepartamento) {
+		this.idDepartamento = idDepartamento;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RequisicionDeArticulo other = (RequisicionDeArticulo) obj;
-		if (idRequisicionDeArticulo == null) {
-			if (other.idRequisicionDeArticulo != null)
-				return false;
-		} else if (!idRequisicionDeArticulo.equals(other.idRequisicionDeArticulo))
-			return false;
-		return true;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		RequisicionDeArticulo that = (RequisicionDeArticulo) o;
+		return idRequisicionDeArticulo.equals(that.idRequisicionDeArticulo);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idRequisicionDeArticulo);
 	}
 
 	@Override
 	public String toString() {
-		return "RequisicionDeArticulo [idRequisicionDeArticulo=" + idRequisicionDeArticulo + ", elaboradoPor="
-				+ elaboradoPor + ", autorizadoPor=" + autorizadoPor + ", recibidoPor=" + recibidoPor + ", fechaPedido="
-				+ fechaPedido + ", fechaEntrega=" + fechaEntrega + ", idEmpleado=" + idEmpleado + "]";
+		return "RequisicionDeArticulo{" +
+				"idRequisicionDeArticulo=" + idRequisicionDeArticulo +
+				", elaboradoPor='" + elaboradoPor + '\'' +
+				", autorizadoPor='" + autorizadoPor + '\'' +
+				", recibidoPor='" + recibidoPor + '\'' +
+				", fechaPedido=" + fechaPedido +
+				", fechaEntrega=" + fechaEntrega +
+				", idEmpleado=" + idEmpleado +
+				", idDepartamento=" + idDepartamento +
+				'}';
 	}
-
-  
-
 }

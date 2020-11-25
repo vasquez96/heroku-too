@@ -42,6 +42,7 @@ public class ProductoProveedorController {
         
         //Se le asigna a userId el id de usuario que tiene la cuenta activa.
     	Long userId = userService.getIdByUsername(username);
+    	//Se obtiene el idProveedor por el idUser
     	Long idProveedor = ProveedorService.getidByUserId(userId);
     	
         for (ProductoProveedor productoProveedor : listProductoProveedorAll) {

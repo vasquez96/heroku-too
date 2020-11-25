@@ -24,6 +24,8 @@ public class Proveedor {
     private String direccionProveedor;
     @Column
     private int telefonoProveedor;
+	@Column
+	private String email ;
     
    @JoinColumn(name="idUser",unique = true)
    @OneToOne(cascade = CascadeType.ALL)
@@ -33,20 +35,34 @@ public class Proveedor {
 	@JoinColumn(name = "idMunicipio")
 	private Municipio idMunicipio;
 
-	public Proveedor(Long idProveedor, String nombreProveedor, String apellidoProveedor, String generoProveedor,
-			String direccionProveedor, int telefonoProveedor, User idUser, Municipio idMunicipio) {
+	public Proveedor() {
+	}
+
+	public Proveedor(Long idProveedor, String nombreProveedor, String apellidoProveedor, String generoProveedor, String direccionProveedor, int telefonoProveedor, String email, User idUser, Municipio idMunicipio) {
 		this.idProveedor = idProveedor;
 		this.nombreProveedor = nombreProveedor;
 		this.apellidoProveedor = apellidoProveedor;
 		this.generoProveedor = generoProveedor;
 		this.direccionProveedor = direccionProveedor;
 		this.telefonoProveedor = telefonoProveedor;
+		this.email = email;
 		this.idUser = idUser;
 		this.idMunicipio = idMunicipio;
 	}
 
-	public Proveedor() {
-
+	@Override
+	public String toString() {
+		return "Proveedor{" +
+				"idProveedor=" + idProveedor +
+				", nombreProveedor='" + nombreProveedor + '\'' +
+				", apellidoProveedor='" + apellidoProveedor + '\'' +
+				", generoProveedor='" + generoProveedor + '\'' +
+				", direccionProveedor='" + direccionProveedor + '\'' +
+				", telefonoProveedor=" + telefonoProveedor +
+				", email='" + email + '\'' +
+				", idUser=" + idUser +
+				", idMunicipio=" + idMunicipio +
+				'}';
 	}
 
 	public Long getIdProveedor() {
@@ -97,6 +113,14 @@ public class Proveedor {
 		this.telefonoProveedor = telefonoProveedor;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public User getIdUser() {
 		return idUser;
 	}
@@ -138,14 +162,5 @@ public class Proveedor {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Proveedor [idProveedor=" + idProveedor + ", nombreProveedor=" + nombreProveedor + ", apellidoProveedor="
-				+ apellidoProveedor + ", generoProveedor=" + generoProveedor + ", direccionProveedor="
-				+ direccionProveedor + ", telefonoProveedor=" + telefonoProveedor + ", idUser=" + idUser
-				+ ", idMunicipio=" + idMunicipio + "]";
-	}
-
-	
 		
 }

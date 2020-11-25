@@ -11,9 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/empleado")
@@ -29,7 +28,7 @@ public class EscenarioCompraController {
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
-    public ModelAndView showRequisicionAprobada(@PathVariable(name = "id") Long id){
+    public ModelAndView showRequisicionAprobada(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("EmpleadoDepartamentoCompras/view");
         //Obtiene la requisicion de articulo por medio del id
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
@@ -43,7 +42,7 @@ public class EscenarioCompraController {
 
     //Método que muestra el escenario de compra
     @RequestMapping("/escenario/{id}")
-    public ModelAndView showEscenarioCompra(@PathVariable(name = "id") Long id){
+    public ModelAndView showEscenarioCompra(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("EmpleadoDepartamentoCompras/escenarioDeCompra");
         //Obtiene la requisicion de articulo por medio del id
         RequisicionDeArticulo requisicionDeArticulo = requisicionDeArticuloService.get(id);
@@ -62,11 +61,56 @@ public class EscenarioCompraController {
     @RequestMapping(value = "/ordenCompra/save", method = RequestMethod.POST)
     public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor) {
         System.out.println("\n**************CANTIDAD DE DATOS: " + idProductoProveedor.size());
+        //Lista que almacena los id de los proveedores
+        ArrayList<Long> idProveedores = new ArrayList<>();
+        //Lista que almacena los productos de los proveedores
+        ArrayList<ProductoProveedor> productosProveedores = new ArrayList<>();
+        //Creando una instancia de tipo ProductoProveedor
         ProductoProveedor productoProveedor;
-        for(int i = 0; i < idProductoProveedor.size(); i++){
+        for (int i = 0; i < idProductoProveedor.size(); i++) {
             System.out.println("*****Producto " + i + ": ");
-            System.out.println(productoProveedorService.get(idProductoProveedor.get(i)));
+            //System.out.println(productoProveedorService.get(idProductoProveedor.get(i)));
+            //Agregando los productos a la lista productosProveedores por medio del id
+            productosProveedores.add(productoProveedorService.get(idProductoProveedor.get(i)));
+            System.out.println("***Producto: " + productosProveedores.get(i));
+            //Agrengando el id del proveedor al ArrayList de idProveedores
+            idProveedores.add(Long.parseLong(productosProveedores.get(i).getIdProveedor().getIdProveedor().toString()));
+            System.out.println("***Id proveedor :" + idProveedores.get(i));
         }
+
+        //Pasamos la lista a un stream ya que nos ofrece el metodo distinct el cual elimina los duplicados y retorna un stream
+        //Luego agrupamos el stream y lo volcamos en una lista nuevamente.
+        idProveedores = (ArrayList<Long>) idProveedores.stream().distinct().collect(Collectors.toList());
+        //Imprimimos la lista utilizando la referencia al metodo println
+        idProveedores.forEach(System.out::println);
+        
+        //Lista que almacena los productos de los proveedores y que servirá para representar el valor en el map
+        ArrayList<ProductoProveedor> productosPorPreveedor;
+        //Estructura de datos que almacena el id del proveedor junto con sus productos (clave/valor)
+        Map<Long, ArrayList<ProductoProveedor>> ordenDeCompra = new HashMap<>();
+
+        //Vamos a separar todos los productos y los vamos a asignar junto al proveedor que corresponde cada producto
+        for (Long idProveedor: idProveedores) { //Inicio del foreach
+            productosPorPreveedor = new ArrayList<>(); //Limpia la lista de productosPorProveedor
+            for (int j = 0; j < productosProveedores.size(); j++) {
+                //Verifica si el id del proveedor corresponde al id del proveedor que se encuentra dentro del producto
+                if (idProveedor == Long.parseLong(productosProveedores.get(j).getIdProveedor().getIdProveedor().toString())){
+                    productosPorPreveedor.add(productosProveedores.get(j)); //Agrega el producto a la listaproductosPorProveedor
+                    //System.out.println("***Hello!");
+                }
+            }
+            ordenDeCompra.put(idProveedor, productosPorPreveedor); //Agregando el proveedor y sus productos (clave/valor)
+            //for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
+                //System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
+            //}
+        } //Fin del ciclor foreach
+
+        //Imprimiendo ordenDeCompra
+        for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
+            System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
+        }
+
+
 
 //        if (bindingResult.hasErrors()) {
 //            return "RequisicionJefeDepartamento/crearRequisicion";
@@ -82,21 +126,21 @@ public class EscenarioCompraController {
         //System.out.println("Datos de articulo: " + articulo.size());
         //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
         ////for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
-            //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
-            //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
-            //Creando una instancia de producto requisicion
-            ////ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-            ////ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-            //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
-            //Agrengando la cantidad pedida del articulo
-            ////productoRequisicion.setCantidad(cantidad.get(i));
-            //Agregando el producto solicitado
-            ////productoRequisicion.setIdProductoProveedor(productoProveedor);
-            //Agregando la requisicion
-            ////productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-            //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
-            //Guardando los productos de la requisicion
-            ////productoRequisicionService.save(productoRequisicion);
+        //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
+        //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
+        //Creando una instancia de producto requisicion
+        ////ProductoRequisicion productoRequisicion = new ProductoRequisicion();
+        ////ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
+        //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
+        //Agrengando la cantidad pedida del articulo
+        ////productoRequisicion.setCantidad(cantidad.get(i));
+        //Agregando el producto solicitado
+        ////productoRequisicion.setIdProductoProveedor(productoProveedor);
+        //Agregando la requisicion
+        ////productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+        //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
+        //Guardando los productos de la requisicion
+        ////productoRequisicionService.save(productoRequisicion);
         ////} //Fin ciclo for
         return "redirect:/empleado";
     }

@@ -143,18 +143,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Smarthphone</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                        <td>2</td>
+                                    <tr th:each="producto : ${productoEmpresa}">
+                                        <td th:text="${producto.nombre}">cantidad</td>
+                                        <td th:text="${producto.cantidad}">cantidad</td>
+                                        <td th:text="${producto.min}">min</td>
+                                        <td th:text="${producto.max}">max</td>
                                     </tr>
-                                    <tr>
-                                        <td>Coca-Cola</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                    </tr>
+
                                     </tbody>
                                 </table>
                                 <!--Segunda tabla -->
@@ -165,21 +160,17 @@
                                                     class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
                                                 <!-- ESCRIBIR CODIGO AQUÍ -->
 
-                                                <table class="table" id="myTable">
-                                                    <thead>
+                                                <table class="table">
+                                                    <thead class="thead-dark">
                                                     <tr>
-                                                        <th>Nombre Porducto</th>
-                                                        <th>Cantidad</th>
+                                                        <th scope="col">Nobre del producto</th>
+                                                        <th scope="col">Cantidad</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>Smarthphone</td>
-                                                        <td>5</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Coca-Cola</td>
-                                                        <td>10</td>
+                                                    <tr th:each="requisicion : ${productoRequisicion}">
+                                                        <td th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">nombreProductoProveedor</td>
+                                                        <td th:text="${requisicion.cantidad}">cantidad</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

@@ -5,6 +5,7 @@ import com.sistemacompras.too.repository.RequisicionDeArticuloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,11 +13,34 @@ public class RequisicionDeArticuloService {
     //Inyeccion de dependencias
     @Autowired
     private RequisicionDeArticuloRepository requisicionDeArticuloRepository;
+    @Autowired
+    private RequisicionDeArticuloService requisicionDeArticuloService;
 
     //Muestra todos los productos
     public List<RequisicionDeArticulo> listAll() {
         return requisicionDeArticuloRepository.findAll();
     }
+
+    public List<RequisicionDeArticulo> listSelected(int estado) {
+        //Se crea una lista con todas las requisiciones
+        List<RequisicionDeArticulo> listRequisicionDeArticuloall = requisicionDeArticuloService.listAll();
+
+        //Se crea lista para ingresar las requisiciones que sean del estado solicitado
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = new ArrayList();
+
+        for (RequisicionDeArticulo requisicionDeArticulo : listRequisicionDeArticuloall) {
+
+            if(requisicionDeArticulo.getEstado() == estado)
+            {
+                listRequisicionDeArticulo.add(requisicionDeArticulo);
+            }
+        }
+
+        return listRequisicionDeArticulo;
+    }
+
+
+
     //Guarda un producto
     public void save(RequisicionDeArticulo requisicionDeArticulo){
         requisicionDeArticuloRepository.save(requisicionDeArticulo);

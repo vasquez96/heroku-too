@@ -20,6 +20,10 @@ public class RequisicionDeArticulo {
     private String autorizadoPor;
     @Column
     private String recibidoPor;
+	@Column
+	private int estado;
+	@Column
+	private String observacion;
     @Column
     private Date fechaPedido;
     @Column
@@ -33,15 +37,33 @@ public class RequisicionDeArticulo {
 	@JoinColumn(name = "idDepartamento")
 	private Departamento idDepartamento;
 
-	public RequisicionDeArticulo(Long idRequisicionDeArticulo, String elaboradoPor, String autorizadoPor, String recibidoPor, Date fechaPedido, Date fechaEntrega, Empleado idEmpleado, Departamento idDepartamento) {
+	public RequisicionDeArticulo(Long idRequisicionDeArticulo, String elaboradoPor, String autorizadoPor, String recibidoPor, int estado, String observacion, Date fechaPedido, Date fechaEntrega, Empleado idEmpleado, Departamento idDepartamento) {
 		this.idRequisicionDeArticulo = idRequisicionDeArticulo;
 		this.elaboradoPor = elaboradoPor;
 		this.autorizadoPor = autorizadoPor;
 		this.recibidoPor = recibidoPor;
+		this.estado = estado;
+		this.observacion = observacion;
 		this.fechaPedido = fechaPedido;
 		this.fechaEntrega = fechaEntrega;
 		this.idEmpleado = idEmpleado;
 		this.idDepartamento = idDepartamento;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public Long getIdRequisicionDeArticulo() {
@@ -128,6 +150,8 @@ public class RequisicionDeArticulo {
 				", elaboradoPor='" + elaboradoPor + '\'' +
 				", autorizadoPor='" + autorizadoPor + '\'' +
 				", recibidoPor='" + recibidoPor + '\'' +
+				", estado=" + estado +
+				", observacion='" + observacion + '\'' +
 				", fechaPedido=" + fechaPedido +
 				", fechaEntrega=" + fechaEntrega +
 				", idEmpleado=" + idEmpleado +

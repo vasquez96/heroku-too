@@ -45,8 +45,6 @@ public class RequisicionController {
     	ProductoRequisicion productoRequisicion = new ProductoRequisicion();
     	
     	String x, y;
-    	String b = "soda";
-    	String c = "soda";
         for(int j = 0; j < listProductos.size(); j++){ //Inicio ciclo for
             for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
                 if(i != j) 
@@ -58,7 +56,6 @@ public class RequisicionController {
                 	if (x.equals(y))
             		{
             			listProductos.remove(j);
-            			System.out.println("Entro en la posicion " + (j));    
             		}
                 }
             }
@@ -66,11 +63,6 @@ public class RequisicionController {
         
         for(int i = 0; i < listProductos.size(); i++){ //Inicio ciclo for
         	listProductos.get(i).setNombreProductoProveedor(listProductos.get(i).getNombreProductoProveedor().toLowerCase());
-        }
-        
-        
-        for (ProductoProveedor producto : listProductos) {
-        	System.out.println(producto.getNombreProductoProveedor());        	
         }
 
     	model.addAttribute("listProductos", listProductos);

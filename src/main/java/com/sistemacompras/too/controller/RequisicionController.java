@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.sistemacompras.too.entity.ProductoRequisicion;
@@ -82,11 +80,10 @@ public class RequisicionController {
 
     //Listar las requisiciones.
     @RequestMapping("/requisicion")
-    public String viewHomePage(Model model, HttpServletRequest request){
+    public String viewHomePage(Model model){
         Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-        String username = request.getUserPrincipal().getName();
         System.out.println("\n***********************");
-        System.out.println("\n\nNOMBRE DE USUARIO-> " + username);
+        System.out.println("\n******** AUTENTICACION ****** " + "\nNOMBRE DE USUARIO-> " +auth.getPrincipal() + "\nROL-> " + auth.getAuthorities());
         System.out.println("\n***********************\n");
         List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listAll();
         model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);

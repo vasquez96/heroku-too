@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base.html}" xmlns:form="http://www.w3.org/1999/html">
+<head>
+<title>Ver requisicion</title>
+<div layout:fragment="style_css">
+	<!-- Aqui va el codigo CSS extra que se quiera agregar -->
+</div>
+</head>
+
+<body>
+	<div layout:fragment="item_menu">
+		<!-- Aqui van las opciones del menu lateral -->
+		<!-- Nav Item - Dashboard -->
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+		<li class="nav-item"><a class="nav-link" href="index.html"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
+	</div>
+
+	<div layout:fragment="main_content">
+		<!-- Aqui va el contenido principal -->
+		<div class="row">
+			<div class="col-xl-12">
+				<div
+					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
+					<div class="col mr-2 text-dark">
+						<h2>Requisición</h2>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-success text-right" th:href="@{/empleado/escenario/{id}(id=${requisicionArticulo.idRequisicionDeArticulo})}"> Escenario de compra<i
+							class="fa fa-shopping-cart"></i> <!-- Ícono-->
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="card shadow-sm my-3 py-3">
+					<div
+						class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
+						<!-- ESCRIBIR CODIGO AQU� -->
+
+						<div class="d-flex flex-row">
+							<p class="p-2"><strong>Fecha de pedido: </strong></p> <!-- Fecha de pedido -->
+							<p class="p-2" th:text="*{requisicionArticulo.getFechaPedido()}"></p>
+						</div>
+						<table class="table">
+							<thead class="thead-dark">
+								<tr> <!-- Encabezado de la tabla -->
+									<th scope="col">Nobre del producto</th>
+									<th scope="col">Cantidad</th>
+								</tr>
+							</thead>
+							<tbody> <!-- Cuerpo de la tabla-->
+								<tr th:each="requisicion : ${productoRequisicion}">
+									<td
+										th:text="${requisicion.idProductoProveedor.nombreProductoProveedor}">nombreProductoProveedor</td>
+									<td th:text="${requisicion.cantidad}">cantidad</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- Datos de las personas que elaboraron y autorizaron la requisición -->
+						<ul class="list-inline">
+							<li class="list-inline-item"><strong> Elaborado por: </strong></li> <!-- Elaborado por -->
+							<li class="list-inline-item" th:text="*{requisicionArticulo.getElaboradoPor()}"></li>
+							<li class="list-inline-item"><strong> Autorizado por: </strong></li> <!-- Autorizado por -->
+							<li class="list-inline-item" th:text="*{requisicionArticulo.getAutorizadoPor()}"></li>
+						</ul>
+					</div> <!--Fin del div escribir codigo aqui -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div layout:fragment="style_js">
+		<!-- Aqui va el contenido JS extra -->
+	</div>
+
+</body>
+</html>

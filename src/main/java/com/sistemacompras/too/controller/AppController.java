@@ -17,22 +17,27 @@ public class AppController {
 //    public String menu() {
 //        return "dashboardAdmin";
 //    }
-    
-  @GetMapping("/admin")
-  public String menu() {
-      return "dashboardAdmin";
-  }
 
-  @GetMapping("/jefe")
-  public String jefeDashboard() {
-        return "RequisicionJefeDepartamento/index";
-	}
-	
-	@GetMapping("/proveedor")
-	public ModelAndView proveedorDashboard() {
-		return new ModelAndView("dashboardProveedor");
-	}
+    @GetMapping("/admin")
+    public String menu() {
+        return "dashboardAdmin";
     }
+
+    @GetMapping("/jefe")
+    public String jefeDashboard() {
+        return "RequisicionJefeDepartamento/index";
+    }
+
+    @GetMapping("/empleado")
+    public String empleadoDashboard() {
+        return "EmpleadoDepartamentoCompras/dashboardEmpleado";
+    }
+
+    @GetMapping("/proveedor")
+    public ModelAndView proveedorDashboard() {
+        return new ModelAndView("dashboardProveedor");
+    }
+}
 //
 //    @GetMapping("/user")
 //    public String user(){

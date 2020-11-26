@@ -70,7 +70,7 @@ public class RequisicionController {
         return "RequisicionJefeDepartamento/crearRequisicion";
     }
 
-    //Listar las requisiciones.
+    //Listar las requisiciones segun el departamento al que pertenezca el usuario.
     @RequestMapping("/requisicion")
     public String viewHomePage(Model model,  HttpServletRequest request){
         //Guardamos el username del usuario activo  en la variable username
@@ -87,7 +87,7 @@ public class RequisicionController {
         List<RequisicionDeArticulo> listRequisicionDeArticulo = new ArrayList();
 
         for (RequisicionDeArticulo requisicionDeArticulo : listRequisicionDeArticuloall) {
-            //Si el idProveedor coinciden se añadiran a la nueva lista
+            //Si coinciden entraran a la nueva lista
             if(requisicionDeArticulo.getIdDepartamento().getIdDepartamento().toString().equals(empleado.getIdDepartamento().getIdDepartamento().toString()))
             {
                 listRequisicionDeArticulo.add(requisicionDeArticulo);
@@ -246,4 +246,7 @@ public class RequisicionController {
         } //Fin ciclo for
         return "redirect:/jefe/requisicion";
     }
+
+
+
 }

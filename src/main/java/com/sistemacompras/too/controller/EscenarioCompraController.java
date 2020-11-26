@@ -4,9 +4,11 @@ import com.sistemacompras.too.entity.*;
 import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -180,5 +182,16 @@ public class EscenarioCompraController {
         ////productoRequisicionService.save(productoRequisicion);
         ////} //Fin ciclo for
         return "redirect:/empleado";
+    }
+
+    //Listar las requisiciones aprobadas = 1.
+    @RequestMapping("/requisicionAprobada")
+    public String viewHomePageA(Model model, HttpServletRequest request) {
+
+        //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
+        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listSelected(1);
+        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
+
+        return "EmpleadoDepartamentoCompras/index.html"; //Nombre del html
     }
 }

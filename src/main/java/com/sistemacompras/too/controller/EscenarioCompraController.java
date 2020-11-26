@@ -1,11 +1,7 @@
 package com.sistemacompras.too.controller;
 
-import com.sistemacompras.too.entity.ProductoProveedor;
-import com.sistemacompras.too.entity.ProductoRequisicion;
-import com.sistemacompras.too.entity.RequisicionDeArticulo;
-import com.sistemacompras.too.service.ProductoProveedorService;
-import com.sistemacompras.too.service.ProductoRequisicionService;
-import com.sistemacompras.too.service.RequisicionDeArticuloService;
+import com.sistemacompras.too.entity.*;
+import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +21,12 @@ public class EscenarioCompraController {
     private ProductoRequisicionService productoRequisicionService;
     @Autowired
     private ProductoProveedorService productoProveedorService;
+    @Autowired
+    private OrdenDeCompraService ordenDeCompraService;
+    @Autowired
+    private ProveedorService proveedorService;
+    @Autowired
+    private DetalleOrdenDeCompraService detalleOrdenDeCompraService;
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
@@ -110,8 +112,40 @@ public class EscenarioCompraController {
             System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
         }
 
-        //Vamos a crear una orden de compra
-        //////
+        /*
+        * Proceso de creación de una orden de compra
+        * */
+        for(Map.Entry<Long, ArrayList<ProductoProveedor> >ordenCompra : ordenDeCompra.entrySet()){
+            System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
+            //Variable que nos permitirá crear una nueva orden de compra de acuerdo a la cantidad de proveedores
+            OrdenDeCompra ordenDe_Compra = new OrdenDeCompra();
+            //Creando un objeto de tipo Date para almacenar la fecha en que se realizó la orden de compra
+            Date fechaPedido = new Date();
+            //Agregando la fecha a la orden de compra
+            ordenDe_Compra.setFechaPedido(fechaPedido);
+            //Obtenemos el proveedor por medio de su id y lo asignamos a la orden de compra
+            ordenDe_Compra.setIdProveedor(proveedorService.get(ordenCompra.getKey()));
+            //Guardamos la orden de compra
+            ordenDeCompraService.save(ordenDe_Compra);
+            /*
+            *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
+            */
+
+            //Ciclo que recorre la cantidad productos que tendrá cada proveedor en su orden de compra
+            for (int i = 0; i < ordenCompra.getValue().size(); i++) {
+                //Creamos un objeto de tipo DetalleOrdenDeCompra
+                DetalleOrdenDeCompra detalleOrdenDeCompra = new DetalleOrdenDeCompra();
+                //Asignamos la orden de compra que acabamos de crear a detalle orden de compra
+                detalleOrdenDeCompra.setIdOrdenDeCompra(ordenDe_Compra);
+                //Asignado el producto del proveedor a detalle orden de compra
+                detalleOrdenDeCompra.setIdProductoProveedor(ordenCompra.getValue().get(i));
+                //Guardando el detalle de la orden de compra
+                detalleOrdenDeCompraService.save(detalleOrdenDeCompra);
+            }//Fin del ciclo for
+            //System.out.println("****ID ORDEN COMPRA: " + ordenDe_Compra.getIdOrdenDeCompra().toString());
+        }//Fin de la creacion de una orden de compra
+
+
 
 
 

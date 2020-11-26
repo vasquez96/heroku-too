@@ -109,7 +109,7 @@
 
                                 <td th:text="${product.idProveedor.getNombreProveedor() + ' ' + product.idProveedor.getApellidoProveedor()}"></td>
                                 <td th:text="${product.nombreProductoProveedor}"></td>
-                                <td th:text="${product.nombreProductoProveedor}"></td>
+                                <td th:text="'$ '+ ${product.precio}"></td>
                                 <td th:text="${product.descuento} + ' %'"></td>
                                 <td th:text="${product.fechaVigenciaInicio}"></td>
                                 <td th:text="${product.fechaVigenciaFinal}"></td>

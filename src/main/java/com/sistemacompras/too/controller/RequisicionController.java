@@ -75,11 +75,8 @@ public class RequisicionController {
     public String viewHomePage(Model model,  HttpServletRequest request){
         //Guardamos el username del usuario activo  en la variable username
         String username = request.getUserPrincipal().getName();
-        //Se le asigna a userId el id de usuario que tiene la cuenta activa.
-        Long userId = userService.getIdByUsername(username);
-        //Se obtiene el idEmpleado por el idUser
-        Long idEmpleado = empleadoService.getidByUserId(userId);
-        Empleado empleado = empleadoService.get(idEmpleado);
+        //Obtenemos el objeto empleado apartir del username del usuario activo
+        Empleado empleado = empleadoService.getEmpleadoByUsername(username);
 
         //Se crea una lista con todoas las requisiciones
         List<RequisicionDeArticulo> listRequisicionDeArticuloall = requisicionDeArticuloService.listAll();

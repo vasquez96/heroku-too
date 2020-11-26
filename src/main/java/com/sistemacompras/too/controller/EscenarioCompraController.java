@@ -44,6 +44,8 @@ public class EscenarioCompraController {
         return mav;
     }//Fin del metodo showRequisicionAprobada
 
+
+
     //Método que muestra el escenario de compra
     @RequestMapping("/escenario/{id}")
     public ModelAndView showEscenarioCompra(@PathVariable(name = "id") Long id) {
@@ -193,5 +195,16 @@ public class EscenarioCompraController {
         model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
 
         return "EmpleadoDepartamentoCompras/index.html"; //Nombre del html
+    }
+
+    //Listar las ordenes de compra
+    @RequestMapping("/ordenesDeCompras")
+    public String viewHomePage(Model model) {
+
+        //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
+        List<OrdenDeCompra> ordenDeCompras = ordenDeCompraService.listAll();
+        model.addAttribute("listordenDeCompras", ordenDeCompras);
+
+        return "EmpleadoDepartamentoCompras/listadoOrdenCompras.html"; //Nombre del html
     }
 }

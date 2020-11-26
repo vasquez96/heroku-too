@@ -110,6 +110,9 @@ public class EscenarioCompraController {
             System.out.println(ordenCompra.getKey() + " : " + ordenCompra.getValue());
         }
 
+        //Vamos a crear una orden de compra
+
+
 
 
 //        if (bindingResult.hasErrors()) {

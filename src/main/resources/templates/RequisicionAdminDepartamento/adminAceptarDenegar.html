@@ -178,17 +178,21 @@
                                         </div>
                                     </div>
                                 </div>
-
+                            <form action="#"  method="post" th:action="@{/admin/requisicionAdmin/editar/}" th:object="${requisicionArticulo}">
                             <!--textArea-->
                             <p>Observaciones</p>
 
-                            <textarea class="observacion" name="observaciones" rows="10" cols="40"></textarea>
+                            <textarea class="observacion" name="observaciones" rows="10" cols="40" ></textarea>
                             <br/>
+                                <input type="hidden" th:name="isss"
+                                       th:value="${requisicionArticulo.getIdRequisicionDeArticulo()}"
+                                       ></input>
 
                             <!-- botones -->
-                            <button type="button" class="btn btn-primary btn-sm">Aceptar</button>
+                            <input name="boton" type="submit" value="Aceptar" class="btn btn-primary btn-sm">
 
-                            <button type="button" class="btn btn-primary btn-sm">Denegar</button>
+                            <input name="boton" type="submit" value="Denegar" class="btn btn-primary btn-sm">
+                                </form>
                         </div>
                         </div>
                     </div>

@@ -29,6 +29,8 @@ public class EscenarioCompraController {
     private ProveedorService proveedorService;
     @Autowired
     private DetalleOrdenDeCompraService detalleOrdenDeCompraService;
+    @Autowired
+    private EmpleadoService empleadoService;
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
@@ -65,7 +67,7 @@ public class EscenarioCompraController {
 
     //Método que genera la orden de compra
     @RequestMapping(value = "/ordenCompra/save", method = RequestMethod.POST)
-    public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor) {
+    public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor,  HttpServletRequest request) {
         System.out.println("\n**************CANTIDAD DE DATOS: " + idProductoProveedor.size());
         //Lista que almacena los id de los proveedores
         ArrayList<Long> idProveedores = new ArrayList<>();
@@ -129,6 +131,11 @@ public class EscenarioCompraController {
             ordenDe_Compra.setFechaPedido(fechaPedido);
             //Obtenemos el proveedor por medio de su id y lo asignamos a la orden de compra
             ordenDe_Compra.setIdProveedor(proveedorService.get(ordenCompra.getKey()));
+            //Guardamos el username del usuario activo  en la variable username
+            String username = request.getUserPrincipal().getName();
+            //Obtenemos el objeto empleado apartir del username del usuario activo
+            Empleado empleado = empleadoService.getEmpleadoByUsername(username);
+            ordenDe_Compra.setIdEmpleado(empleado);
             //Guardamos la orden de compra
             ordenDeCompraService.save(ordenDe_Compra);
             /*

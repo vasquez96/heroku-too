@@ -20,6 +20,10 @@ public class OrdenDeCompra {
 	@JoinColumn(name = "idProveedor")
 	private Proveedor idProveedor;
 
+	@ManyToOne
+	@JoinColumn(name = "idEmpleado")
+	private Empleado idEmpleado;
+
 	//Constructor sin parametros
 
 	public OrdenDeCompra() {
@@ -27,17 +31,27 @@ public class OrdenDeCompra {
 
 	//Constructor con parametros
 
-	public OrdenDeCompra(Long idOrdenDeCompra, Float totalCompra, Date fechaPedido, Date fechaPago, String teminoEntrega, Proveedor idProveedor) {
+	public OrdenDeCompra(Long idOrdenDeCompra, Float totalCompra, Date fechaPedido, Date fechaPago, String teminoEntrega, Proveedor idProveedor, Empleado idEmpleado) {
 		this.idOrdenDeCompra = idOrdenDeCompra;
 		this.totalCompra = totalCompra;
 		this.fechaPedido = fechaPedido;
 		this.fechaPago = fechaPago;
 		this.teminoEntrega = teminoEntrega;
 		this.idProveedor = idProveedor;
+		this.idEmpleado = idEmpleado;
 	}
+
 
 	//Getter y setter
 
+
+	public Empleado getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(Empleado idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
 
 	public Long getIdOrdenDeCompra() {
 		return idOrdenDeCompra;
@@ -89,6 +103,7 @@ public class OrdenDeCompra {
 
 	//ToString
 
+
 	@Override
 	public String toString() {
 		return "OrdenDeCompra{" +
@@ -98,6 +113,7 @@ public class OrdenDeCompra {
 				", fechaPago=" + fechaPago +
 				", teminoEntrega='" + teminoEntrega + '\'' +
 				", idProveedor=" + idProveedor +
+				", idEmpleado=" + idEmpleado +
 				'}';
 	}
 }

@@ -138,6 +138,8 @@ public class EscenarioCompraController {
             ordenDe_Compra.setIdEmpleado(empleado);
             //Guardamos la orden de compra
             ordenDeCompraService.save(ordenDe_Compra);
+
+
             /*
             *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
             */

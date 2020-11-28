@@ -19,11 +19,24 @@ public class testController {
   // @GetMapping("/requisicionAdmin")
     //public String dashboardAdmin() { return "RequisicionAdminDepartamento/adminRequisicion.html"; }
 
-  //  @GetMapping("/aceptarDenegarAdmin")//http://127.0.0.1:8080/admin/aceptarDenegarAdmin
-   // public String dashboardAdminAceptarDenegar() {
-   //     return "RequisicionAdminDepartamento/adminAceptarDenegar.html";
-    //}
+//   @GetMapping("/aceptarDenegarAdmin")//http://127.0.0.1:8080/admin/aceptarDenegarAdmin
+//public String dashboardAdminAceptarDenegar() {
+//       return "RequisicionAdminDepartamento/adminAceptarDenegar.html";
+//    }
 
+    @RequestMapping("/inventarioPrueba")
+    public String dashbordIncentario(){
+        return "InventarioArticulos/inventarioEmpresa.html";
+    }
+
+    @RequestMapping("/movimientoInventarioPrueba")
+    public String dashbordMovimentoIncentario(){
+        return "InventarioArticulos/movimientoInventario.html";
+    }
+    @RequestMapping("/recibirArticuloPrueba")
+    public String dashbordRevibirArticulo(){
+        return "InventarioArticulos/recibirArticulo.html";
+    }
 }
 
 

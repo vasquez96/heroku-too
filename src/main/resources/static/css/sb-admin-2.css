@@ -12077,3 +12077,8 @@ body.sidebar-toggled footer.sticky-footer {
     top:30%;
 
 }
+#precio{
+    position: absolute;
+    left: 75%;
+
+}

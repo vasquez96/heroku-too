@@ -11,6 +11,8 @@ public class DetalleOrdenDeCompra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idDetalleOrdenDeCompra;
+	private Integer cantidad;
+	private float precio;
 
 	@ManyToOne
 	@JoinColumn(name = "idOrdenDeCompra")

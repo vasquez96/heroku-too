@@ -4,11 +4,10 @@ import com.sistemacompras.too.entity.*;
 import com.sistemacompras.too.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,8 +28,6 @@ public class EscenarioCompraController {
     private ProveedorService proveedorService;
     @Autowired
     private DetalleOrdenDeCompraService detalleOrdenDeCompraService;
-    @Autowired
-    private EmpleadoService empleadoService;
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
@@ -46,8 +43,6 @@ public class EscenarioCompraController {
         return mav;
     }//Fin del metodo showRequisicionAprobada
 
-
-
     //Método que muestra el escenario de compra
     @RequestMapping("/escenario/{id}")
     public ModelAndView showEscenarioCompra(@PathVariable(name = "id") Long id) {
@@ -58,16 +53,19 @@ public class EscenarioCompraController {
         List<ProductoRequisicion> productoRequisicion = productoRequisicionService.listadoPorId(id);
         //Obtiene la lista de los productos de los diferentes proveedores
         List<ProductoProveedor> listProductoProveedor = productoProveedorService.listAll();
+        //Calculamos el precio con descuento de los productos y se lo mandamos a la vista
+        Map<Long, Double> precioConDescuento = calcularPrecioConDescuento(listProductoProveedor);
         //Manda los objetos a la vista
         mav.addObject("productoRequisicion", productoRequisicion);
         mav.addObject("requisicionArticulo", requisicionDeArticulo);
         mav.addObject("listProductoProveedor", listProductoProveedor);
+        mav.addObject("precioConDescuento", precioConDescuento);
         return mav;
     }//Fin del metodo showEscenarioCompra
 
     //Método que genera la orden de compra
     @RequestMapping(value = "/ordenCompra/save", method = RequestMethod.POST)
-    public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor,  HttpServletRequest request) {
+    public String guardarRequisicion(@RequestParam(name = "idProductoProveedor") ArrayList<Long> idProductoProveedor) {
         System.out.println("\n**************CANTIDAD DE DATOS: " + idProductoProveedor.size());
         //Lista que almacena los id de los proveedores
         ArrayList<Long> idProveedores = new ArrayList<>();
@@ -131,15 +129,16 @@ public class EscenarioCompraController {
             ordenDe_Compra.setFechaPedido(fechaPedido);
             //Obtenemos el proveedor por medio de su id y lo asignamos a la orden de compra
             ordenDe_Compra.setIdProveedor(proveedorService.get(ordenCompra.getKey()));
-            //Guardamos el username del usuario activo  en la variable username
-            String username = request.getUserPrincipal().getName();
-            //Obtenemos el objeto empleado apartir del username del usuario activo
-            Empleado empleado = empleadoService.getEmpleadoByUsername(username);
-            ordenDe_Compra.setIdEmpleado(empleado);
+            //Caluclar el total de la compra
+            Map<Long, Double> precioFinalDeLosArticulos = calcularPrecioConDescuento(ordenCompra.getValue());
+            double totalCompra = 0;
+            for (Map.Entry<Long, Double> precio: precioFinalDeLosArticulos.entrySet()) {
+                totalCompra = totalCompra + precio.getValue();
+            }
+            //Poniendo el total de la compra en la orden de compra
+            ordenDe_Compra.setTotalCompra((float) totalCompra);
             //Guardamos la orden de compra
             ordenDeCompraService.save(ordenDe_Compra);
-
-
             /*
             *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
             */
@@ -158,62 +157,30 @@ public class EscenarioCompraController {
             //System.out.println("****ID ORDEN COMPRA: " + ordenDe_Compra.getIdOrdenDeCompra().toString());
         }//Fin de la creacion de una orden de compra
 
-
-
-
-
-//        if (bindingResult.hasErrors()) {
-//            return "RequisicionJefeDepartamento/crearRequisicion";
-//        } else {
-        //Creando una instancia de fecha para capturar la fecha del hoy
-        ////Date fecha = new Date();
-        //Creando una requisicion de articulo
-        ////RequisicionDeArticulo requisicionDeArticulo = new RequisicionDeArticulo();
-        //Modificando la fecha de la elaboracion de la requisicion
-        ////requisicionDeArticulo.setFechaPedido(fecha);
-        ///requisicionDeArticuloService.save(requisicionDeArticulo);
-        //System.out.println("Datos de cantidad: " + cantidad.size());
-        //System.out.println("Datos de articulo: " + articulo.size());
-        //Ciclo que recorre la cantidad de datos solicitdados para la requisicion
-        ////for (int i = 0; i < cantidad.size(); i++) { //Inicio ciclo for
-        //System.out.println("Valor de la cantidad del articulo: " + cantidad.get(i));
-        //System.out.println("Nombre de articulo: " + productoService.get(articulo.get(i)));
-        //Creando una instancia de producto requisicion
-        ////ProductoRequisicion productoRequisicion = new ProductoRequisicion();
-        ////ProductoProveedor productoProveedor = productoService.get(articulo.get(i));
-        //System.out.println("Nombre de articulo: " + productoProveedor.getNombreProductoProveedor());
-        //Agrengando la cantidad pedida del articulo
-        ////productoRequisicion.setCantidad(cantidad.get(i));
-        //Agregando el producto solicitado
-        ////productoRequisicion.setIdProductoProveedor(productoProveedor);
-        //Agregando la requisicion
-        ////productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
-        //System.out.println("DATOS DE PRODUCTO REQUISICION: " + productoRequisicion.toString());
-        //Guardando los productos de la requisicion
-        ////productoRequisicionService.save(productoRequisicion);
-        ////} //Fin ciclo for
         return "redirect:/empleado";
     }
 
-    //Listar las requisiciones aprobadas = 1.
-    @RequestMapping("/requisicionAprobada")
-    public String viewHomePageA(Model model, HttpServletRequest request) {
-
-        //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
-        List<RequisicionDeArticulo> listRequisicionDeArticulo = requisicionDeArticuloService.listSelected(1);
-        model.addAttribute("listRequisicionDeArticulo", listRequisicionDeArticulo);
-
-        return "EmpleadoDepartamentoCompras/index.html"; //Nombre del html
-    }
-
-    //Listar las ordenes de compra
-    @RequestMapping("/ordenesDeCompras")
-    public String viewHomePage(Model model) {
-
-        //se crea una lista y se le asignan las requisiciones aprobadas, para eso es el metodo listSelected y el 1 para las aprobadas
-        List<OrdenDeCompra> ordenDeCompras = ordenDeCompraService.listAll();
-        model.addAttribute("listordenDeCompras", ordenDeCompras);
-
-        return "EmpleadoDepartamentoCompras/listadoOrdenCompras.html"; //Nombre del html
-    }
+    /* Método que calcula el precio con descuento de los productos */
+    //(Clave/valor) = (idProductoProveedor, precioArticulo)
+    public Map<Long, Double> calcularPrecioConDescuento(List<ProductoProveedor> productoProveedor){
+        //Se declara un ArrayList que almacena los precios cuando se ha aplicado el descuento
+        Map<Long,Double> precioConDescuento = new HashMap<>();
+        //Creando una variable que almacena la fecha actual
+        Date fechaHoy = new Date();
+        //Ciclo for que reccorre todos los productos del proveedor
+        for (int i = 0; i < productoProveedor.size(); i++) {
+            //Verifica si la fecha de hoy es mayor que la fecha de inicio de la promoción y si la fecha de hoy es menor a la fecha final de la promoción, en caso de ser verdadero aplica el descuento
+            if (fechaHoy.after(productoProveedor.get(i).getFechaVigenciaInicio()) && fechaHoy.before(productoProveedor.get(i).getFechaVigenciaFinal())) {
+                DecimalFormat dosDecimales = new DecimalFormat("#.##"); //Variable que redondea a dos decimales
+                double precioArticulo = productoProveedor.get(i).getPrecio(); //Obteniendo el precio
+                double descuento = Double.valueOf(dosDecimales.format(productoProveedor.get(i).getDescuento() / 100)); //Obteniendo el descuento
+                precioArticulo = Double.valueOf(dosDecimales.format(precioArticulo - precioArticulo * descuento)); //Realizando el cálculo del precio con descuento
+                precioConDescuento.put(productoProveedor.get(i).getIdProductoProveedor(), precioArticulo); //Agregando al ArrayList el precio con el descuento aplicado
+            } else { //Ya pasó la promoción
+                double precioArticulo = productoProveedor.get(i).getPrecio(); //Obteniendo el precio
+                precioConDescuento.put(productoProveedor.get(i).getIdProductoProveedor(), precioArticulo);
+            }
+        }//Fin del ciclo for
+        return precioConDescuento; //Retornando el ArrayList
+    } /* Fin del método que calcula el precio con descuento de los productos */
 }

@@ -127,18 +127,21 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" id="form_editar" method="GET">
+                            <form action="#" th:action="@{/bodega/productoEmpresa/save}"
+                                  th:object="${productoEmpresa}" method="post"
                                 <div class="card-body">
                                     <div class="form-group">
                                         <td :text="${}">Producto:</td>
+                                        <input type="text" th:field="*{nombre}" class="form-control" required>
+                                        <input type="hidden"  th:field="*{idProductoEmpresa}"  class="form-control"  required>
                                     </div>
                                     <div class="form-group">
                                         <br><label >Cantidad minima: <br></label>
-                                        <input type="number" name= "cantidad_minima" class="form-control" id="cantidad_minima" placeholder="Ingrese Cantidad" required>
+                                        <input type="number"  th:field="*{min}" name= "cantidad_minima" class="form-control" id="cantidad_minima" placeholder="Ingrese Cantidad" required>
                                     </div>
                                     <div class="form-group">
                                         <br><label >Cantidad maxima: <br></label>
-                                        <input type="number" name= "cantidad_maxima" class="form-control" id="cantidad_maxima" placeholder="Ingrese Cantidad" required>
+                                        <input type="number" th:field="*{max}" name= "cantidad_maxima" class="form-control" id="cantidad_maxima" placeholder="Ingrese Cantidad" required>
                                     </div>
                                     <div>
                                     <p>
@@ -148,7 +151,7 @@
                                     </div>
 
                                 </div>
-
+                            </form>
                                 <!-- Footer -->
                                 <footer class="sticky-footer bg-white">
                                     <div class="container my-auto">

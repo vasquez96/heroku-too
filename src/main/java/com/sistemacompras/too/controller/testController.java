@@ -38,6 +38,11 @@ public class testController {
         return "InventarioArticulos/recibirArticulo.html";
     }
 
+   // @RequestMapping("/editar")
+   // public String dashbordRevibirArticulo2(){
+   //     return "InventarioArticulos/EditarArticulos.html";
+   // }
+
 
 }
 

@@ -24,10 +24,10 @@ public class testController {
 //       return "RequisicionAdminDepartamento/adminAceptarDenegar.html";
 //    }
 
-    @RequestMapping("/inventarioPrueba")
-    public String dashbordIncentario(){
-        return "InventarioArticulos/inventarioEmpresa.html";
-    }
+   // @RequestMapping("/inventarioPrueba")
+   // public String dashbordIncentario(){
+    //    return "InventarioArticulos/inventarioEmpresa.html";
+    //}
 
     @RequestMapping("/movimientoInventarioPrueba")
     public String dashbordMovimentoIncentario(){
@@ -37,6 +37,8 @@ public class testController {
     public String dashbordRevibirArticulo(){
         return "InventarioArticulos/recibirArticulo.html";
     }
+
+
 }
 
 

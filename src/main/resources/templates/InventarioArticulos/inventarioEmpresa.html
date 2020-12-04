@@ -57,28 +57,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Telefono</td>
-                            <td>20</td>
-                            <td>5</td>
-                            <td>30</td>
+                        <tr th:each="product : ${listProductoEmpresa}">
+                            <td th:text="${product.nombre}">ID</td>
+                            <td th:text="${product.cantidad}">nombre de
+                                producto</td>
+                            <td th:text="${product.min}">periodo de gracia</td>
+                            <td th:text="${product.max}">descuento</td>
                             <td>
-                                <a href="requisicion/edit/1">
-                                    <button type="button" class="btn btn-warning">Editar</button>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Lapiceros</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>100</td>
-                            <td>
-                                <a href="requisicion/edit/1">
-                                    <button type="button" class="btn btn-warning">Editar</button>
-                                </a>
+                                <a th:href="@{/bodega/productoEmpresa/edit/{id}(id=${product.idProductoEmpresa})}"><button type="button" class="btn btn-warning">Editar</button></a>
                             </td>
                         </tr>
                         </tbody>

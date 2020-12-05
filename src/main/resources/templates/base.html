@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
@@ -50,6 +51,27 @@
 
         <div layout:fragment="item_menu">
             <!-- Nav Item - Dashboard -->
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/requisicionAdmin}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                </a></li>
+            </div>
+            <div sec:authorize="hasRole('ROLE_JEFE')">
+                <li class="nav-item"><a class="nav-link" th:href="@{/jefe/requisicion}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                </a></li>
+            </div>
+            <div sec:authorize="hasRole('ROLE_EMPLEADO')">
+                <li class="nav-item"><a class="nav-link" th:href="@{/empleado/requisicionAprobada}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
+                </a></li>
+            </div>
+            <div sec:authorize="hasRole('ROLE_PROVEEDOR')">
+                <li class="nav-item"><a class="nav-link" th:href="@{/proveedor/ProductoProveedor}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Gestión de productos</span>
+                </a></li>
+            </div>
 
         </div>
 

@@ -101,10 +101,12 @@
 					<form action="#" th:action="@{/proveedor/ProductoProveedor/save}"
 						  th:object="${productoProveedor}" method="post">
 					<div class="card-body">
+
 							<div class="form-group">
 								<label>Id del producto:</label>
 								<input type="text" th:field="*{idProductoProveedor}">
 							</div>
+
 						<br>
 							<div class="form-group">
 								<label>Nombre del producto:</label>

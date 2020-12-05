@@ -55,11 +55,9 @@
                         <tbody>
                         <tr th:each="detalle : ${detalleOrdenDeCompra}">
                             <td> th:text="+ ${} " </td>
-
+                            <td> Aqui va la cantidad </td>
                             <td th:text="${detalle.idProductoProveedor.nombreProductoProveedor}"></td>
-
                         </tr>
-
                         </tbody>
                     </table>
                     <p><strong>Total:</strong></p>

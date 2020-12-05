@@ -33,10 +33,10 @@ public class testController {
     public String dashbordMovimentoIncentario(){
         return "InventarioArticulos/movimientoInventario.html";
     }
-    @RequestMapping("/recibirArticuloPrueba")
-    public String dashbordRevibirArticulo(){
-        return "InventarioArticulos/recibirArticulo.html";
-    }
+    //@RequestMapping("/recibirArticuloPrueba")
+    //public String dashbordRevibirArticulo(){
+    //    return "InventarioArticulos/recibirArticulo.html";
+    //}
 
    // @RequestMapping("/editar")
    // public String dashbordRevibirArticulo2(){

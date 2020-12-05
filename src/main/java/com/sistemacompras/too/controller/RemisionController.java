@@ -77,7 +77,7 @@ public class RemisionController {
             if (i == 0)
             {
                 //Esta cantidad se debe cambiar por la nueva
-                productosAGuardar.setCantidad(15);
+                productosAGuardar.setCantidad(productoEntrante.getCantidad());
                 productosAGuardar.setMax(200);
                 productosAGuardar.setMin(150);
                 productosAGuardar.setNombre(productoEntrante.getIdProductoProveedor().getNombreProductoProveedor());

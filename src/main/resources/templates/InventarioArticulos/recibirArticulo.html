@@ -55,8 +55,10 @@
                         <tbody>
                         <tr th:each="detalle : ${detalleOrdenDeCompra}">
                             <td> th:text="+ ${} " </td>
-                            <td> Aqui va la cantidad </td>
+                            <td th:text="${detalle.getCantidad()}"></td>
                             <td th:text="${detalle.idProductoProveedor.nombreProductoProveedor}"></td>
+                            <td th:text="${detalle.getPrecio()}"></td>
+                            <td th:text="${detalle.getPrecio() * detalle.getCantidad()}"></td>
                         </tr>
                         </tbody>
                     </table>

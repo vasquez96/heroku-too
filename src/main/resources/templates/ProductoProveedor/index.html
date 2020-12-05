@@ -35,6 +35,13 @@
 					class="card py-3 my-3 shadow-sm d-flex flex-row align-items-center justify-content-between">
 				<div class="col mr-2 text-dark">
 					<h2>Listar Producto de proveedor</h2>
+					<div sec:authorize="hasRole('ROLE_ADMIN')">
+						Content for administrators
+					</div>
+					<div sec:authorize="hasRole('ROLE_PROVEEDOR')">
+						Contenido para los proveedores
+					</div>
+					Roles: <span sec:authentication="principal.authorities">ROLE_USER, ROLE_ADMIN</span>
 				</div>
 				<div class="col-auto">
 					<a class="btn btn-success text-right" th:href="@{/proveedor/ProductoProveedor/new}"> <i

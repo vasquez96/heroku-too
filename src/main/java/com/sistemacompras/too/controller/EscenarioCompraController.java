@@ -32,6 +32,8 @@ public class EscenarioCompraController {
     private DetalleOrdenDeCompraService detalleOrdenDeCompraService;
     @Autowired
     private EmpleadoService empleadoService;
+    @Autowired
+    private NotaDeRemisionService notaDeRemisionService;
 
     //Método que muestra la requisicion aprobada para iniciar un escenario de compra
     @RequestMapping("/requisicion/view/{id}")
@@ -191,6 +193,19 @@ public class EscenarioCompraController {
             ordenDe_Compra.setTotalCompra((float) totalCompra);
             //Guardamos la orden de compra
             ordenDeCompraService.save(ordenDe_Compra);
+            /*
+            * Creando la nota de remision
+            * */
+            //Creando un objeto de tipo nota de remision
+            NotasDeRemision notasDeRemision = new NotasDeRemision();
+            //Asignando el id de la orden de compra
+            notasDeRemision.setIdOrdenDeCompra(ordenDe_Compra);
+            //Se le asigna un estado a la nota de remision
+            // Pendiente = 0, Aceptada = 1;
+            notasDeRemision.setEstado(0);
+            //Guardando la nota de remision
+            notaDeRemisionService.save(notasDeRemision);
+
             /*
             *Una vez guardada la orden de compra procedemos a crear el detalle de la orden de compra
             */

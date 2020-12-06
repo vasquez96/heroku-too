@@ -61,6 +61,9 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/requisicion}"> <i
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
                 </a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/jefe/ordenesDeCompras}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Ordenes De Compra</span>
+                </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_EMPLEADO')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/empleado/requisicionAprobada}"> <i
@@ -70,6 +73,11 @@
             <div sec:authorize="hasRole('ROLE_PROVEEDOR')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/proveedor/ProductoProveedor}"> <i
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Gestión de productos</span>
+                </a></li>
+            </div>
+            <div sec:authorize="hasRole('ROLE_BODEGUERO')">
+                <li class="nav-item"><a class="nav-link" th:href="@{/bodega}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Notas de remision</span>
                 </a></li>
             </div>
 

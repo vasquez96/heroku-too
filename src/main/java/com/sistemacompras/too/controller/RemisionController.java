@@ -23,6 +23,8 @@ public class RemisionController {
     private ProductoEmpresaService service;
     @Autowired
     private NotaDeRemisionService notaDeRemisionService;
+    @Autowired
+    private NotaDeRemisionService notasService;
 
     //Metodo que lista las notas de remision
     @RequestMapping("/remisiones")
@@ -98,7 +100,14 @@ public class RemisionController {
                 System.out.println("Guardo un producto de la empresa nuevo:");
             }
         }
-            System.out.println("el id es: " + id);
+
+        Long idRemision = notaDeRemisionService.getIdRemisionByIdOrdenDeCompra(id);
+
+        NotasDeRemision notaDeRemision = notaDeRemisionService.get(idRemision);
+        notaDeRemision.setEstado(1);
+        notaDeRemisionService.save(notaDeRemision);
+
         return "redirect:/bodega/remisiones";
     }
+
 }

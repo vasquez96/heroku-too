@@ -55,4 +55,26 @@ public class NotaDeRemisionService {
 
         return listRemisiones;
     }
+
+    public Long getIdRemisionByIdOrdenDeCompra(Long idOrdenDeCompra)
+    {
+        //Se crea una lista con todas las remisiones
+        List<NotasDeRemision> listNotasDeRemisionall = notaDeRemisionService.listAll();
+        Long idRemision = Long.valueOf(0);
+        //Se recorren todas las notas de remision
+        for (NotasDeRemision remision : listNotasDeRemisionall) {
+
+            //Se compara el id de la orden de compra.
+            if(remision.getIdOrdenDeCompra().getIdOrdenDeCompra() == idOrdenDeCompra)
+            {
+                idRemision = remision.getIdNotaRemision();
+                return  idRemision;
+            }
+        }
+
+
+        return  idRemision;
+    }
+
+
 }

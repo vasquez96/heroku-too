@@ -85,6 +85,11 @@ public class RemisionController {
                  */
                     if(nombreProductoEntrante.equals(nombreProductoDeLaEmpresa))
                     {
+                        //Se toma la cantidad de productos que hay en bd y se le suma la cantidad entrante.
+                        int nuevaCantidad = productoBD.getCantidad() + productoEntrante.getCantidad();
+                        //Al producto de la bd se le suma lo nuevo
+                        productoBD.setCantidad(nuevaCantidad);
+                        service.save(productoBD);
                         i++;
                     }
             }

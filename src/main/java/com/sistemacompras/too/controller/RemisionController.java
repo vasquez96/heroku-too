@@ -85,7 +85,7 @@ public class RemisionController {
                 System.out.println("Guardo un producto de la empresa nuevo:");
             }
         }
-
+            System.out.println("el id es: " + id);
         return "redirect:/bodega/remisiones";
     }
 }

@@ -31,6 +31,7 @@
                         class="table-responsive-lg table-responsive-sm table-responsive-md col-xl-12 col-md-12 col-sm-12">
                     <!-- ESCRIBIR CODIGO AQUÍ -->
                     <p><strong>Proveedor:</strong> Nombre Proveedor</p>
+                    <p class="p-2" th:text="${detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getNombreProveedor() + detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getIdProveedor().getApellidoProveedor()}"></p>
                     <br/>
                     <table class="table">
                         <thead>
@@ -53,6 +54,7 @@
                         </tbody>
                     </table>
                     <p><strong>Total:</strong></p>
+                    <p class="p-2" th:text="${detalleOrdenDeCompra.get(0).getIdOrdenDeCompra().getTotalCompra()}"></p>
                     <input name="boton" type="submit" value="Aceptar" class="btn btn-primary btn-sm">
                 </div>
             </div>

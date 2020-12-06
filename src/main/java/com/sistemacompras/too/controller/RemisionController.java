@@ -21,6 +21,8 @@ public class RemisionController {
     private OrdenDeCompraService ordenDeCompraService;
     @Autowired
     private ProductoEmpresaService service;
+    @Autowired
+    private NotaDeRemisionService notasService;
 
     //Ver la orden de compra
     @RequestMapping("/remisiones/view/{id}")
@@ -87,5 +89,25 @@ public class RemisionController {
         }
             System.out.println("el id es: " + id);
         return "redirect:/bodega/remisiones";
+    }
+
+    //Muestra las remisiones pendientes
+    @RequestMapping("/remisiones")
+    public String viewHomePage(Model model, HttpServletRequest request){
+
+        List<NotasDeRemision> listNotasDeRemision = notasService.listSelected(0);
+
+        model.addAttribute("listNotasDeRemision", listNotasDeRemision);
+        return "InventarioArticulos/inventarioEmpresa.html"; //Nombre del html
+    }
+
+    //Muestra las remisiones aprobadas
+    @RequestMapping("/remisionesAprobadas")
+    public String viewHomePageApro(Model model, HttpServletRequest request){
+
+        List<NotasDeRemision> listNotasDeRemision = notasService.listSelected(1);
+
+        model.addAttribute("listNotasDeRemision", listNotasDeRemision);
+        return "InventarioArticulos/inventarioEmpresa.html"; //Nombre del html
     }
 }

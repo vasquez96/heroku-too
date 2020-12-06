@@ -2,10 +2,12 @@ package com.sistemacompras.too.service;
 
 import com.sistemacompras.too.entity.NotasDeRemision;
 import com.sistemacompras.too.entity.OrdenDeCompra;
+import com.sistemacompras.too.entity.RequisicionDeArticulo;
 import com.sistemacompras.too.repository.NotaRemisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,6 +15,8 @@ public class NotaDeRemisionService {
     //Inyeccion de dependencias
     @Autowired
     private NotaRemisionRepository notaDeRemisionRepository;
+    @Autowired
+    private NotaDeRemisionService notaDeRemisionService;
 
     //Muestra todas las ordenes de compra
     public List<NotasDeRemision> listAll() {
@@ -31,5 +35,24 @@ public class NotaDeRemisionService {
     //Elimina una orden de compra por su id
     public void delete(Long id){
         notaDeRemisionRepository.deleteById(id);
+    }
+
+    //Devuelve las remisiones segun su estado
+    public List<NotasDeRemision> listSelected(int estado) {
+        //Se crea una lista con todas las remisiones
+        List<NotasDeRemision> listNotasDeRemisionall = notaDeRemisionService.listAll();
+
+        //Se crea lista para ingresar las remisiones que sean del estado solicitado
+        List<NotasDeRemision> listRemisiones = new ArrayList();
+
+        for (NotasDeRemision remision : listNotasDeRemisionall) {
+
+            if(remision.getEstado() == estado)
+            {
+                listRemisiones.add(remision);
+            }
+        }
+
+        return listRemisiones;
     }
 }

@@ -71,7 +71,7 @@ public class RequisicionController {
     }
 
     //Listar las requisiciones segun el departamento al que pertenezca el usuario.
-    @RequestMapping("/requisicion")
+    @GetMapping("/requisicion")
     public String viewHomePage(Model model,  HttpServletRequest request){
         //Guardamos el username del usuario activo  en la variable username
         String username = request.getUserPrincipal().getName();

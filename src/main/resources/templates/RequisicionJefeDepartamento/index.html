@@ -8,7 +8,6 @@
     <div layout:fragment="style_css">
         <!-- Aqui va el codigo CSS extra que se quiera agregar -->
 
-
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}"
               href="/static/vendor/datatables/dataTables.bootstrap4.min.css"
               rel="stylesheet" type="text/css">
@@ -61,18 +60,16 @@
 
                             <td>
                                 <span th:if="${requisicion.estado == 0}" class="badge badge-primary">Pendiente</span>
-                                <span th:if="${requisicion.estado == 2}" class="badge badge-danger">Reprobado</span>
+                                <span th:if="${requisicion.estado == 2}" class="badge badge-danger">Denegado</span>
                                 <span th:if="${requisicion.estado == 1}" class="badge badge-success">Aprobado</span>
                             </td>
 
                             <td th:text="${requisicion.fechaPedido}">fecha de Pedido</td>
                             <td th:text="${requisicion.fechaEntrega}">fecha de Entrega</td>
-                            <td><a
-                                    th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
-                                <a
-                                        th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
-                                <a
-                                        th:href="@{requisicion/eliminar/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+                            <td>
+                                <a th:href="@{requisicion/edit/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-warning">Editar</button></a>
+                                <a th:href="@{requisicion/view/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-success">Ver</button></a>
+                                <a th:href="@{requisicion/eliminar/{id}(id=${requisicion.idRequisicionDeArticulo})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
                             </td>
                         </tr>
                         </tbody>

@@ -239,6 +239,7 @@ public class RequisicionController {
             //Guardando los productos de la requisicion
             //Agregando la requisicion
             productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
+            requisicionDeArticulo.setEstado(0);
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
         return "redirect:/jefe/requisicion";

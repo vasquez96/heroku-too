@@ -105,7 +105,7 @@
                                                 </td>
                                                 <td th:text="${notaDeRemision.getIdOrdenDeCompra().getTotalCompra()}"></td>
                                                 <td>
-                                                    <a th:href="@{escenario/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
+                                                    <a th:href="@{/bodega/remisiones/view/{id}(id=${notaDeRemision.getIdOrdenDeCompra().getIdOrdenDeCompra()})}">
                                                         <button type="button" class="btn btn-success">Ver</button>
                                                     </a>
                                                 </td>

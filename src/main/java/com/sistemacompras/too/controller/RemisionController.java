@@ -37,7 +37,7 @@ public class RemisionController {
         return mav;
     }
 
-    //Ver la orden de compra
+    //Ver la remision recibiendo el id de la orden de compra ligada a dicha remision
     @RequestMapping("/remisiones/view/{id}")
     public ModelAndView showProductPage(@PathVariable(name = "id") Long id) {
         /**
@@ -51,6 +51,13 @@ public class RemisionController {
         {
             System.out.println(detalleOrdenDeCompra1.toString());
         }
+        //Se obtiene le id de la remision a partir de la orden de compra
+        Long idRemision = notaDeRemisionService.getIdRemisionByIdOrdenDeCompra(id);
+
+        //Se obtiene la nota de remision mediante el id de la remision
+        NotasDeRemision notaDeRemision = notaDeRemisionService.get(idRemision);
+
+        mav.addObject("notaDeRemision", notaDeRemision);
         mav.addObject("detalleOrdenDeCompra", detalleOrdenDeCompra);
         return mav;
     }

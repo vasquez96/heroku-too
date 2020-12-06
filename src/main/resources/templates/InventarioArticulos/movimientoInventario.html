@@ -16,16 +16,6 @@
 </head>
 
 <body>
-<div layout:fragment="item_menu">
-    <!-- Aqui van las opciones del menu lateral -->
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html"> <i
-            class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-    </a></li>
-</div>
 
 <div layout:fragment="main_content">
     <!-- Aqui va el contenido principal -->
@@ -54,25 +44,25 @@
                             <th>Fecha de movimiento</th>
                             <th>Cantidad de entrada</th>
                             <th>Cantidad de salida</th>
+                            <th>Precio de compra</th>
+                            <th>Total</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Telefono</td>
-                            <td>Entrada por inventario inicial</td>
-                            <td>27/11/2020</td>
-                            <td>20</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Telefono</td>
-                            <td>Salida al departamento de contabilidad</td>
-                            <td>27/11/2020</td>
-                            <td>0</td>
-                            <td>5</td>
-                        </tr>
+                        <div th:with="i=0">
+                            <tr th:each="movimientoEmpresa : ${movimientoEmpresas}">
+                                <div th:with="i=${i+1}">
+                                    <td th:text="${i}"></td>
+                                    <td th:text="${movimientoEmpresa.getNombreProducto()}"></td>
+                                    <td th:text="${movimientoEmpresa.getMovimiento()}"></td>
+                                    <td th:text="${movimientoEmpresa.getFechaMovimiento()}"></td>
+                                    <td th:text="${movimientoEmpresa.getCantidadEntrada()}"></td>
+                                    <td th:text="${movimientoEmpresa.getCantidadSalida()}"></td>
+                                    <td th:text="'$ ' + ${movimientoEmpresa.getPrecioCompra()}"></td>
+                                    <td th:text="'$ ' + ${movimientoEmpresa.getTotal()}"></td>
+                                </div>
+                            </tr>
+                        </div>
                         </tbody>
                     </table>
                 </div>

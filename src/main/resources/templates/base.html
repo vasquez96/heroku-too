@@ -56,6 +56,9 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/requisicionAdmin}"> <i
                         class="fas fa-fw fa-tachometer-alt"></i> <span>Requisiciones</span>
                 </a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/movimientoInventario}"> <i
+                        class="fas fa-fw fa-tachometer-alt"></i> <span>Movimiento Inventario</span>
+                </a></li>
             </div>
             <div sec:authorize="hasRole('ROLE_JEFE')">
                 <li class="nav-item"><a class="nav-link" th:href="@{/jefe/requisicion}"> <i

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +24,8 @@ public class RemisionController {
     private ProductoEmpresaService service;
     @Autowired
     private NotaDeRemisionService notaDeRemisionService;
+    @Autowired
+    private MovimientoEmpresaService movimientoEmpresaService;
     @Autowired
     private NotaDeRemisionService notasService;
 
@@ -98,6 +101,42 @@ public class RemisionController {
                         productoBD.setCantidad(nuevaCantidad);
                         service.save(productoBD);
                         i++;
+                        /*
+                         * PROCESO PARA REGISTRAR UN MOVIMIENTO DE ENTRADA EN LA EMPRESA
+                         * */
+                        //Creando un objeto de tipo MovimientoEmpresa
+                        MovimientoEmpresa movimientoEmpresaEntrada = new MovimientoEmpresa();
+                        //Asigna el nombre del producto
+                        movimientoEmpresaEntrada.setNombreProducto(nombreProductoEntrante);
+                        //Asigna el tipo de movimiento
+                        movimientoEmpresaEntrada.setMovimiento("Entrada al inventario");
+                        //Agregando la fecha del movimiento
+                        Date fechaMovimientoEntrada = new Date();
+                        movimientoEmpresaEntrada.setFechaMovimiento(fechaMovimientoEntrada);
+                        //Agregando la cantidad de entrada
+                        movimientoEmpresaEntrada.setCantidadEntrada(productoEntrante.getCantidad());
+                        //Agregando el precio de compra
+                        movimientoEmpresaEntrada.setPrecioCompra(productoEntrante.getPrecio());
+                        //Agregando el total de la compra
+                        movimientoEmpresaEntrada.setTotal(productoEntrante.getCantidad() * productoEntrante.getPrecio());
+                        //Guardando el movimiento de entrada de la empresa
+                        movimientoEmpresaService.save(movimientoEmpresaEntrada);
+                        /*
+                         * PROCESO PARA REGISTRAR UN MOVIMIENTO DE SALIDA EN LA EMPRESA
+                         * */
+                        //Creando un objeto de tipo MovimientoEmpresa
+                        MovimientoEmpresa movimientoEmpresaSalida = new MovimientoEmpresa();
+                        //Asigna el nombre del producto
+                        movimientoEmpresaSalida.setNombreProducto(nombreProductoEntrante);
+                        //Asigna el tipo de movimiento
+                        movimientoEmpresaSalida.setMovimiento("Salida del inventario");
+                        //Agregando la fecha del movimiento
+                        Date fechaMovimientoSalida = new Date();
+                        movimientoEmpresaSalida.setFechaMovimiento(fechaMovimientoSalida);
+                        //Agregando la cantidad de entrada
+                        movimientoEmpresaSalida.setCantidadSalida(productoEntrante.getCantidad());
+                        //Guardando el movimiento de entrada de la empresa
+                        movimientoEmpresaService.save(movimientoEmpresaSalida);
                     }
             }
             //Si i vale 0 es porque ningun otro producto tiene ese nombre entonces se guarda
@@ -110,6 +149,42 @@ public class RemisionController {
                 productosAGuardar.setNombre(productoEntrante.getIdProductoProveedor().getNombreProductoProveedor());
                 service.save(productosAGuardar);
                 System.out.println("Guardo un producto de la empresa nuevo:");
+                /*
+                * PROCESO PARA REGISTRAR UN MOVIMIENTO DE ENTRADA EN LA EMPRESA
+                * */
+                //Creando un objeto de tipo MovimientoEmpresa
+                MovimientoEmpresa movimientoEmpresaEntrada = new MovimientoEmpresa();
+                //Asigna el nombre del producto
+                movimientoEmpresaEntrada.setNombreProducto(nombreProductoEntrante);
+                //Asigna el tipo de movimiento
+                movimientoEmpresaEntrada.setMovimiento("Entrada al inventario");
+                //Agregando la fecha del movimiento
+                Date fechaMovimientoEntrada = new Date();
+                movimientoEmpresaEntrada.setFechaMovimiento(fechaMovimientoEntrada);
+                //Agregando la cantidad de entrada
+                movimientoEmpresaEntrada.setCantidadEntrada(productoEntrante.getCantidad());
+                //Agregando el precio de compra
+                movimientoEmpresaEntrada.setPrecioCompra(productoEntrante.getPrecio());
+                //Agregando el total de la compra
+                movimientoEmpresaEntrada.setTotal(productoEntrante.getCantidad() * productoEntrante.getPrecio());
+                //Guardando el movimiento de entrada de la empresa
+                movimientoEmpresaService.save(movimientoEmpresaEntrada);
+                /*
+                 * PROCESO PARA REGISTRAR UN MOVIMIENTO DE SALIDA EN LA EMPRESA
+                 * */
+                //Creando un objeto de tipo MovimientoEmpresa
+                MovimientoEmpresa movimientoEmpresaSalida = new MovimientoEmpresa();
+                //Asigna el nombre del producto
+                movimientoEmpresaSalida.setNombreProducto(nombreProductoEntrante);
+                //Asigna el tipo de movimiento
+                movimientoEmpresaSalida.setMovimiento("Salida del inventario");
+                //Agregando la fecha del movimiento
+                Date fechaMovimientoSalida = new Date();
+                movimientoEmpresaSalida.setFechaMovimiento(fechaMovimientoSalida);
+                //Agregando la cantidad de entrada
+                movimientoEmpresaSalida.setCantidadSalida(productoEntrante.getCantidad());
+                //Guardando el movimiento de entrada de la empresa
+                movimientoEmpresaService.save(movimientoEmpresaSalida);
             }
         }
 

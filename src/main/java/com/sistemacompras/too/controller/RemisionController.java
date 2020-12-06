@@ -101,8 +101,10 @@ public class RemisionController {
             }
         }
 
+        //Se obtiene le id de la remision a partir de la orden de compra
         Long idRemision = notaDeRemisionService.getIdRemisionByIdOrdenDeCompra(id);
 
+        //Se obtiene la nota de remision mediante el id de la remision
         NotasDeRemision notaDeRemision = notaDeRemisionService.get(idRemision);
         notaDeRemision.setEstado(1);
         notaDeRemisionService.save(notaDeRemision);

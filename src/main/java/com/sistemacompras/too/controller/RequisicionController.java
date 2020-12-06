@@ -240,6 +240,7 @@ public class RequisicionController {
             //Agregando la requisicion
             productoRequisicion.setIdRequisicionDeArticulo(requisicionDeArticulo);
             requisicionDeArticulo.setEstado(0);
+            requisicionDeArticulo.setObservacion("");
             productoRequisicionService.save(productoRequisicion);
         } //Fin ciclo for
         return "redirect:/jefe/requisicion";

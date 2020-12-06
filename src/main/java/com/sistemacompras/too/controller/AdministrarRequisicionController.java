@@ -47,7 +47,6 @@ public class AdministrarRequisicionController {
         return "RequisicionAdminDepartamento/adminRequisicion.html"; //Nombre del html
     }
 
-
     //View un producto de proveedor
     @RequestMapping("/requisicionAdmin/aceptarDenegarAdmin/{id}")
     public ModelAndView showProductPage(@PathVariable(name = "id") Long id) {
